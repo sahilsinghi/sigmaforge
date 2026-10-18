@@ -1,0 +1,90 @@
+title: Run Key Points to a User-Writable Location
+id: 37226877-7b7d-494b-bf2c-2286a144f50e
+status: test
+description: |
+  Detects a Run / RunOnce autostart value whose command lives in a folder any user can
+  write to (AppData, Temp, Public, ProgramData, Windows\Tasks) or that launches a script
+  host or LOLBin directly. This is the most common persistence mechanism in commodity
+  malware.
+
+  Signed per-user installers (OneDrive, Teams, Slack, Discord, Spotify, Zoom) legitimately
+  register themselves under AppData. They are filtered by writer process path AND by the
+  value's target folder together. A malware sample that names itself OneDrive.exe but
+  writes from a different folder still fires.
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1547.001
+logsource:
+  category: registry_set
+  product: windows
+detection:
+  selection_key:
+    TargetObject|contains:
+      - '\Software\Microsoft\Windows\CurrentVersion\Run\'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunOnce\'
+      - '\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\'
+  selection_target:
+    Details|contains:
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+      - '\Windows\Tasks\'
+      - 'powershell'
+      - 'mshta'
+      - 'rundll32'
+      - 'regsvr32'
+      - 'wscript'
+      - 'cscript'
+  filter_onedrive:
+    Image|endswith:
+      - '\Microsoft\OneDrive\OneDrive.exe'
+      - '\Microsoft\OneDrive\OneDriveSetup.exe'
+      - '\Microsoft OneDrive\OneDrive.exe'
+    Details|contains: '\Microsoft\OneDrive\OneDrive.exe'
+  filter_teams:
+    Image|endswith: '\AppData\Local\Microsoft\Teams\Update.exe'
+    Details|contains: '\AppData\Local\Microsoft\Teams\Update.exe'
+  filter_slack:
+    Image|endswith: '\AppData\Local\slack\slack.exe'
+    Details|contains: '\AppData\Local\slack\slack.exe'
+  filter_discord:
+    Image|endswith: '\AppData\Local\Discord\Update.exe'
+    Details|contains: '\AppData\Local\Discord\Update.exe'
+  filter_spotify:
+    Image|endswith: '\AppData\Roaming\Spotify\Spotify.exe'
+    Details|contains: '\AppData\Roaming\Spotify\Spotify.exe'
+  filter_zoom:
+    Image|endswith: '\AppData\Roaming\Zoom\bin\Zoom.exe'
+    Details|contains: '\AppData\Roaming\Zoom\bin\'
+  condition: all of selection_* and not 1 of filter_*
+falsepositives:
+  - Other per-user installers (Chrome-based apps, game launchers). Tune with `sigmaforge tune`.
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: medium
+  noise_budget: 0.15
+  tests:
+    positive:
+      - tests/positive/registry_set_win_run_key_user_writable_path
+    negative:
+      - tests/negative/registry_set_win_run_key_user_writable_path
+    external:
+      - dataset: evtx-attack-samples
+        path: Persistence/evasion_persis_hidden_run_keyvalue_sysmon_13.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/Malware/sideloading_injection_persistence_run_key.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/Malware/DE_timestomp_and_dll_sideloading_and_RunPersist.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/wmi_remote_registry_sysmon.evtx
+        min_hits: 1

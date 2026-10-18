@@ -1,0 +1,76 @@
+title: Suspicious Process Opened LSASS for Memory Read
+id: dff43280-7975-493b-abf4-8fd26e3750d5
+status: test
+description: |
+  Detects a process opening lsass.exe with access rights that allow reading its memory
+  (PROCESS_VM_READ combinations used by Mimikatz, ProcDump, Dumpert and comsvcs). Known
+  Windows components and Microsoft Defender are excluded by full path, not by name, so a
+  renamed tool in a user folder still fires.
+
+  Sysmon versions differ in how they print GrantedAccess (0x1010 vs 0x00001010); both
+  spellings are listed. Every real sample in the external test set uses the padded form.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess:
+      - '0x1010'
+      - '0x1410'
+      - '0x1438'
+      - '0x143a'
+      - '0x1fffff'
+      - '0x1f1fff'
+      - '0x00001010'
+      - '0x00001410'
+      - '0x00001438'
+      - '0x0000143a'
+      - '0x001fffff'
+      - '0x001f1fff'
+  filter_windows:
+    SourceImage:
+      - 'C:\Windows\System32\svchost.exe'
+      - 'C:\Windows\System32\wininit.exe'
+      - 'C:\Windows\System32\csrss.exe'
+      - 'C:\Windows\System32\services.exe'
+      - 'C:\Windows\System32\lsm.exe'
+      - 'C:\Windows\System32\wbem\WmiPrvSE.exe'
+      - 'C:\Windows\System32\MRT.exe'
+  filter_defender:
+    SourceImage|startswith:
+      - 'C:\ProgramData\Microsoft\Windows Defender\Platform\'
+      - 'C:\Program Files\Windows Defender\'
+    SourceImage|endswith: '\MsMpEng.exe'
+  condition: selection and not 1 of filter_*
+falsepositives:
+  - Task Manager "Create dump file" on lsass (an administrator action that should still be reviewed).
+  - Third-party EDR or backup agents; add them by full path after review.
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/proc_access_win_lsass_memory_read
+    negative:
+      - tests/negative/proc_access_win_lsass_memory_read
+    external:
+      - dataset: evtx-attack-samples
+        path: Credential Access/sysmon_10_lsass_mimikatz_sekurlsa_logonpasswords.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Credential Access/sysmon_10_11_lsass_memdump.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Credential Access/sysmon_3_10_Invoke-Mimikatz_hosted_Github.evtx
+        min_hits: 1

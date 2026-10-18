@@ -1,0 +1,37 @@
+title: Security Audit Log Cleared
+id: 0b896020-c1e9-40ee-a7f2-fdb02688b9aa
+status: test
+description: |
+  Detects Security event 1102, which Windows always writes when the Security log is
+  cleared, however it was cleared (wevtutil, Event Viewer, API).
+references:
+  - https://attack.mitre.org/techniques/T1685/005/
+  - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-1102
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.defense-impairment
+  - attack.t1685.005
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 1102
+  condition: selection
+falsepositives:
+  - Planned log rotation in labs.
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.01
+  tests:
+    positive:
+      - tests/positive/win_security_audit_log_cleared
+    negative:
+      - tests/negative/win_security_audit_log_cleared
+    external:
+      - dataset: evtx-attack-samples
+        path: Defense Evasion/DE_1102_security_log_cleared.evtx
+        min_hits: 1

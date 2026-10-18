@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sigmaforge"
+version = "0.1.0"
+description = "Detection-as-code pipeline: lint, convert, replay and gate Sigma rules with honest noise and ATT&CK coverage metrics."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Sahil Singhi" }]
+keywords = ["sigma", "detection-engineering", "soc", "siem", "mitre-attack", "detection-as-code"]
+dependencies = [
+  "pySigma>=1.5",
+  "sigma-cli>=3.1",
+  "pysigma-backend-splunk>=2.1",
+  "pysigma-backend-elasticsearch>=2.1",
+  "pysigma-backend-kusto>=1.0",
+  "pysigma-pipeline-sysmon>=2.0",
+  "pysigma-pipeline-windows>=2.0",
+  "PyYAML>=6.0",
+  "Jinja2>=3.1",
+  "python-evtx>=0.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+demo = ["pillow>=10"]
+
+[project.scripts]
+sigmaforge = "sigmaforge.cli:main"
+
+[tool.setuptools]
+packages = ["sigmaforge", "sigmaforge.minisiem"]
+
+[tool.setuptools.package-data]
+sigmaforge = ["templates/*.j2", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]

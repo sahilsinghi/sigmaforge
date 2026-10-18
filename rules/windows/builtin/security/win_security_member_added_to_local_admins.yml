@@ -1,0 +1,40 @@
+title: Member Added to the Local Administrators Group
+id: 42d8a85c-fe2f-4a88-8e6d-e6a92030ec9d
+status: test
+description: |
+  Detects Security event 4732 for the built-in Administrators group (S-1-5-32-544).
+  Adding an account (or a well-known low-privilege SID such as Guest or Network Service)
+  to local admins is a quiet way to keep privileged access.
+references:
+  - https://attack.mitre.org/techniques/T1098/
+  - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4732
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1098
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4732
+    TargetSid: 'S-1-5-32-544'
+  condition: selection
+falsepositives:
+  - Workstation provisioning by IT. Correlate with a change ticket.
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/win_security_member_added_to_local_admins
+    negative:
+      - tests/negative/win_security_member_added_to_local_admins
+    external:
+      - dataset: evtx-attack-samples
+        path: Persistence/Network_Service_Guest_added_to_admins_4732.evtx
+        min_hits: 2

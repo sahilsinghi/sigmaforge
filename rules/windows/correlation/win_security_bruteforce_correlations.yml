@@ -1,0 +1,155 @@
+title: Failed Network Logon
+id: 23136b50-622b-443b-961d-37d736bf62c9
+name: failed_network_logon
+status: test
+description: |
+  Building block: a failed network or RDP logon. Fires constantly on its own (typos,
+  expired service-account passwords), so it never alerts directly. The correlations
+  below use it.
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.credential-access
+  - attack.t1110
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+    LogonType:
+      - 3
+      - 10
+  condition: selection
+level: informational
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  tests:
+    positive:
+      - tests/positive/failed_network_logon
+---
+title: Successful Network Logon
+id: c17bef56-506c-44fd-87d1-32cd387ccf90
+name: successful_network_logon
+status: test
+description: Building block - a successful network or RDP logon.
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.credential-access
+  - attack.t1110
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType:
+      - 3
+      - 10
+  condition: selection
+level: informational
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  tests:
+    positive:
+      - tests/positive/successful_network_logon
+---
+title: Burst of Failed Logons From One Source
+id: e358c085-2e14-484f-8edd-b0e879d1bc81
+name: failed_logon_burst
+status: test
+description: Building block - ten or more failed network logons from one IP within five minutes.
+author: Sahil Singhi
+date: 2026-10-18
+correlation:
+  type: event_count
+  rules:
+    - failed_network_logon
+  group-by:
+    - IpAddress
+  timespan: 5m
+  condition:
+    gte: 10
+level: medium
+tags:
+  - attack.credential-access
+  - attack.t1110.001
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  tests:
+    positive:
+      - tests/positive/win_security_bruteforce_then_success
+---
+title: Brute Force Followed by a Successful Logon
+id: 65ffcf5b-1048-472b-9c2b-9ccc7c2f0ff1
+name: bruteforce_then_success
+status: test
+description: |
+  A burst of ten or more failed network logons from one source IP, followed within ten
+  minutes by a successful network logon from the same IP. The burst alone is password
+  guessing; the success afterwards is a likely compromised account and is what this rule
+  alerts on.
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+author: Sahil Singhi
+date: 2026-10-18
+correlation:
+  type: temporal_ordered
+  rules:
+    - failed_logon_burst
+    - successful_network_logon
+  group-by:
+    - IpAddress
+  timespan: 10m
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1110.001
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/win_security_bruteforce_then_success
+    negative:
+      - tests/negative/win_security_bruteforce_then_success
+---
+title: Password Spray From One Source
+id: 92cbd06c-6f48-4de1-bbb5-64ae0cf11bc3
+name: password_spray
+status: test
+description: |
+  Failed network logons for ten or more different accounts from one source IP within ten
+  minutes - one or two guesses per account to stay under lockout thresholds.
+references:
+  - https://attack.mitre.org/techniques/T1110/003/
+author: Sahil Singhi
+date: 2026-10-18
+correlation:
+  type: value_count
+  rules:
+    - failed_network_logon
+  group-by:
+    - IpAddress
+  timespan: 10m
+  condition:
+    gte: 10
+    field: TargetUserName
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1110.003
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/win_security_password_spray
+    negative:
+      - tests/negative/win_security_password_spray

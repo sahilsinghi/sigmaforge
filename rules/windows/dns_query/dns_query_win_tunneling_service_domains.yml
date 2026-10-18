@@ -1,0 +1,44 @@
+title: DNS Query for a Reverse-Tunnel Service
+id: 49bc5696-d703-4f1f-9e81-64534567b6b8
+status: test
+description: |
+  Detects DNS lookups for reverse-tunnel / ingress services (ngrok, Cloudflare quick
+  tunnels, localtunnel, serveo, localhost.run, pinggy). These give an intruder an
+  inbound path through the firewall or a C2 channel hidden in a reputable domain.
+  Developers use them legitimately, which is why this rule has a noise budget rather than
+  a zero-tolerance threshold.
+references:
+  - https://attack.mitre.org/techniques/T1572/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.command-and-control
+  - attack.t1572
+logsource:
+  category: dns_query
+  product: windows
+detection:
+  selection:
+    QueryName|endswith:
+      - '.ngrok.io'
+      - '.ngrok-free.app'
+      - '.ngrok.app'
+      - '.ngrok-agent.com'
+      - '.trycloudflare.com'
+      - '.loca.lt'
+      - '.serveo.net'
+      - '.localhost.run'
+      - '.pinggy.link'
+  condition: selection
+falsepositives:
+  - Developers demoing local web apps. Expect a few hits per week on engineering hosts.
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: medium
+  noise_budget: 0.2
+  tests:
+    positive:
+      - tests/positive/dns_query_win_tunneling_service_domains
+    negative:
+      - tests/negative/dns_query_win_tunneling_service_domains

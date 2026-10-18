@@ -1,0 +1,2 @@
+{"EventID": 1100, "Channel": "Security", "Computer": "WS-004.corp.local", "@timestamp": "2026-10-01T09:38:14.000Z"}
+{"EventID": 4663, "Channel": "Security", "Computer": "WS-004.corp.local", "@timestamp": "2026-10-01T09:38:51.000Z", "SubjectUserName": "LOCAL SERVICE", "ObjectName": "C:\\Windows\\System32\\winevt\\Logs\\Security.evtx"}

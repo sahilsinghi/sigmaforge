@@ -1,0 +1,1 @@
+{"EventID": 4624, "Channel": "Security", "Computer": "SRV-DC01.corp.local", "@timestamp": "2026-10-01T10:16:28.000Z", "TargetUserName": "administrator", "LogonType": "3", "IpAddress": "10.10.99.66", "LogonProcessName": "NtLmSsp", "AuthenticationPackageName": "NTLM"}

@@ -1,0 +1,53 @@
+# SigmaForge project configuration
+rules: rules
+out: out
+
+# Every event file under these paths is treated as benign. The synthetic corpus is
+# generated in CI (it is deterministic and locked by baseline/corpus.lock.json); drop
+# real exports from a Sysmon lab VM into tests/benign/real/ to raise the bar.
+benign:
+  - tests/benign
+
+baseline_generator:
+  out: tests/benign/synthetic
+  hosts: 12
+  days: 14
+  seed: 1337
+
+backends:
+  splunk:
+    target: splunk
+    pipelines: [sysmon, splunk_windows]
+    label: Splunk SPL (Sysmon add-on fields)
+    required_for: [detection]
+  lucene:
+    target: lucene
+    pipelines: [sysmon, ecs_windows, sigmaforge_ecs_caseless]
+    label: Elastic / OpenSearch Lucene (ECS + case-insensitive .caseless fields)
+    required_for: [detection]
+  lucene_stock:
+    target: lucene
+    pipelines: [sysmon, ecs_windows]
+    label: Elastic / OpenSearch Lucene (stock ecs_windows pipeline)
+    required_for: []
+  esql:
+    target: esql
+    pipelines: [sysmon, ecs_windows]
+    label: Elastic ES|QL (ECS)
+    required_for: []
+  kql:
+    target: kusto
+    pipelines: [microsoft_xdr]
+    label: Microsoft Defender XDR KQL
+    required_for: []
+
+gate:
+  min_tpr: 1.0                 # every labelled positive must fire
+  noise_regression_ratio: 1.5  # warn when alerts/host/day grows 50%+ (inside budget)
+  baseline: baseline/metrics.json
+
+sigma_check:
+  exclude: []
+
+equivalence:
+  known_differences: equivalence-exceptions.yml

@@ -1,0 +1,47 @@
+title: LSASS Dump via Comsvcs MiniDump Export
+id: f1a5a0b9-dc37-4d0d-8408-e32ccbb648af
+status: test
+description: |
+  Detects rundll32.exe calling the MiniDump export of comsvcs.dll (by name or by its
+  ordinal #24). This dumps a process's memory with only built-in binaries and is widely
+  used to dump LSASS for offline credential extraction.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://lolbas-project.github.io/lolbas/Libraries/comsvcs/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\rundll32.exe'
+    - OriginalFileName: 'RUNDLL32.EXE'
+  selection_dll:
+    CommandLine|contains: 'comsvcs'
+  selection_export:
+    CommandLine|contains:
+      - 'MiniDump'
+      - '#24'
+      - '#+24'
+      - '#-4294967272'
+  condition: all of selection_*
+falsepositives:
+  - None known.
+level: critical
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.01
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_rundll32_comsvcs_minidump
+    negative:
+      - tests/negative/proc_creation_win_rundll32_comsvcs_minidump
+    external:
+      - dataset: evtx-attack-samples
+        path: Credential Access/sysmon_10_1_memdump_comsvcs_minidump.evtx
+        min_hits: 1

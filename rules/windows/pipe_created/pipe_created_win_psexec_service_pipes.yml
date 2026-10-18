@@ -1,0 +1,47 @@
+title: PsExec Service Named Pipes, Including Renamed PsExec
+id: 72b821c3-b041-47d3-a59a-0f04311ee3ec
+status: test
+description: |
+  Detects the named pipes PsExec creates on the target: \PSEXESVC, plus the per-session
+  \<service>-<HOST>-<PID>-stdin / -stdout / -stderr pipes. The second pattern keeps
+  firing when the operator renames the service (psexec -r svchost), which a name-only
+  rule misses. Remote command execution over SMB with PsExec is used by administrators
+  and by ransomware crews alike, so expect some legitimate hits.
+references:
+  - https://attack.mitre.org/techniques/T1569/002/
+  - https://attack.mitre.org/techniques/T1021/002/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.execution
+  - attack.t1569.002
+  - attack.lateral-movement
+  - attack.t1021.002
+logsource:
+  category: pipe_created
+  product: windows
+detection:
+  selection_name:
+    PipeName|startswith: '\PSEXESVC'
+  selection_session_pipes:
+    PipeName|re: '\\[^\\]+-[^\\]+-[0-9]+-(stdin|stdout|stderr)'
+  condition: 1 of selection_*
+falsepositives:
+  - Administrators using PsExec. Review the source host and account.
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/pipe_created_win_psexec_service_pipes
+    negative:
+      - tests/negative/pipe_created_win_psexec_service_pipes
+    external:
+      - dataset: evtx-attack-samples
+        path: Privilege Escalation/sysmon_privesc_psexec_dwell.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Defense Evasion/DE_renamed_psexec_service_sysmon_17_18.evtx
+        min_hits: 3

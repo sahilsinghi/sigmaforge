@@ -1,0 +1,1120 @@
+{
+ "commit": "4ceed2f4706daf601c212a8f91c113dd85349a2c",
+ "dataset": "evtx-attack-samples",
+ "files": {
+  "AutomatedTestingTools/Malware/DE_timestomp_and_dll_sideloading_and_RunPersist.evtx": {
+   "sha": "6469958cc39cc8114feddd0ea47ce7ff5eeb5c40",
+   "size": 69632
+  },
+  "AutomatedTestingTools/Malware/rundll32_cmd_schtask.evtx": {
+   "sha": "e69bcc7711f1ee2ca4992d7578f89598be414c0d",
+   "size": 69632
+  },
+  "AutomatedTestingTools/Malware/rundll32_hollowing_wermgr_masquerading.evtx": {
+   "sha": "653a07f5eb86b0038701cd2a6d7ee3eb4141bc4b",
+   "size": 69632
+  },
+  "AutomatedTestingTools/Malware/sideloading_injection_persistence_run_key.evtx": {
+   "sha": "2a2386d388764618fefd622f02d9c417d63054cd",
+   "size": 69632
+  },
+  "AutomatedTestingTools/Malware/sideloading_uacbypass_rundll32_injection_c2.evtx": {
+   "sha": "13dd580daf31ead3cfd28f6b496846cf0e941a29",
+   "size": 69632
+  },
+  "AutomatedTestingTools/PanacheSysmon_vs_AtomicRedTeam01.evtx": {
+   "sha": "aaa1de121beec96e343442ec7d809b4be30ad9f3",
+   "size": 1118208
+  },
+  "AutomatedTestingTools/WinDefender_Events_1117_1116_AtomicRedTeam.evtx": {
+   "sha": "8b9e5477952dda6493d9aeb84d316714897e7683",
+   "size": 69632
+  },
+  "AutomatedTestingTools/panache_sysmon_vs_EDRTestingScript.evtx": {
+   "sha": "7b4f6cc66c13d7632b7aecbb50432c4540e828c0",
+   "size": 1118208
+  },
+  "Command and Control/DE_RDP_Tunnel_5156.evtx": {
+   "sha": "1248e0907d8f755b15407cb3a736ef2e75423283",
+   "size": 69632
+  },
+  "Command and Control/DE_RDP_Tunneling_4624.evtx": {
+   "sha": "8743adbd706e4029d214cfc2c8c224dd7b401af6",
+   "size": 69632
+  },
+  "Command and Control/DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx": {
+   "sha": "e58abe47bd8bfb9f0c2d0af88347fdece9bde20e",
+   "size": 1118208
+  },
+  "Command and Control/DE_sysmon-3-rdp-tun.evtx": {
+   "sha": "ff1072cc3d3919bba21c8a913d2990c9b150d058",
+   "size": 69632
+  },
+  "Command and Control/bits_openvpn.evtx": {
+   "sha": "b7ac92ab6dc0d42d89685c8b83d6bad4f5f3953e",
+   "size": 1118208
+  },
+  "Command and Control/tunna_iis_rdp_smb_tunneling_sysmon_3.evtx": {
+   "sha": "ad8ecc6485c39e7ec3fb973084943038bdc54722",
+   "size": 69632
+  },
+  "Credential Access/4794_DSRM_password_change_t1098.evtx": {
+   "sha": "4ba78cfc8927833b3889d16a31241451b2204188",
+   "size": 69632
+  },
+  "Credential Access/ACL_ForcePwd_SPNAdd_User_Computer_Accounts.evtx": {
+   "sha": "21ceb7c3563ac4f0fdaf66f74228e28161ef98b0",
+   "size": 1118208
+  },
+  "Credential Access/CA_4624_4625_LogonType2_LogonProc_chrome.evtx": {
+   "sha": "a95f5ade32eee3e8bbb23457caf6a041e7026556",
+   "size": 69632
+  },
+  "Credential Access/CA_DCSync_4662.evtx": {
+   "sha": "b1fc4b670aa2435b6ae1bea31479954bb919f4c9",
+   "size": 69632
+  },
+  "Credential Access/CA_Mimikatz_Memssp_Default_Logs_Sysmon_11.evtx": {
+   "sha": "f327cae927dc825ff4731a20f3a6ee84efb4eda5",
+   "size": 69632
+  },
+  "Credential Access/CA_PetiPotam_etw_rpc_efsr_5_6.evtx": {
+   "sha": "845235a57225e58677557c498836187bc5de2e65",
+   "size": 10555392
+  },
+  "Credential Access/CA_chrome_firefox_opera_4663.evtx": {
+   "sha": "bf375305b8e9e82a0ac407e0b64dd452f30d61c8",
+   "size": 69632
+  },
+  "Credential Access/CA_hashdump_4663_4656_lsass_access.evtx": {
+   "sha": "5520f1bb24231a5bef583e645a790f534ba7386b",
+   "size": 69632
+  },
+  "Credential Access/CA_keefarce_keepass_credump.evtx": {
+   "sha": "309648eb61103f1f7610796c16575c520935c1a8",
+   "size": 69632
+  },
+  "Credential Access/CA_keepass_KeeThief_Get-KeePassDatabaseKey.evtx": {
+   "sha": "ceb623d5eba239020691b2e109bb6805c4deca44",
+   "size": 69632
+  },
+  "Credential Access/CA_protectedstorage_5145_rpc_masterkey.evtx": {
+   "sha": "b72404ea3f48138190a819f277a0c174391c676a",
+   "size": 69632
+  },
+  "Credential Access/CA_sysmon_hashdump_cmd_meterpreter.evtx": {
+   "sha": "fb13e88485e492066354cb708debe2938e163ca3",
+   "size": 69632
+  },
+  "Credential Access/CA_teamviewer-dumper_sysmon_10.evtx": {
+   "sha": "8556e32d14f46c9dddb049a0f197b445f503f787",
+   "size": 69632
+  },
+  "Credential Access/LsassSilentProcessExit_process_exit_monitor_3001_lsass.evtx": {
+   "sha": "c01afcba267b0e3de589be1542dca3ee0bd3467b",
+   "size": 69632
+  },
+  "Credential Access/MSSQL_multiple_failed_logon_EventID_18456.evtx": {
+   "sha": "bfb8fb2fc668a0bd3cf37dbea5ddab29b31163ff",
+   "size": 69632
+  },
+  "Credential Access/Powershell_4104_MiniDumpWriteDump_Lsass.evtx": {
+   "sha": "230d0d1b91e76223bb20d820624f2ea442241bae",
+   "size": 69632
+  },
+  "Credential Access/Sysmon13_MachineAccount_Password_Hash_Changed_via_LsarSetSecret.evtx": {
+   "sha": "8f235845606b819fb8f17a21196af09629bff2c4",
+   "size": 69632
+  },
+  "Credential Access/Sysmon_13_Local_Admin_Password_Changed.evtx": {
+   "sha": "b54c10c8d5f8c55238595ef2e40784c6c3e66c33",
+   "size": 69632
+  },
+  "Credential Access/Zerologon_CVE-2020-1472_DFIR_System_NetLogon_Error_EventID_5805.evtx": {
+   "sha": "898c4f1c45ad32f7ffac9f67455179b8cbb59352",
+   "size": 69632
+  },
+  "Credential Access/Zerologon_VoidSec_CVE-2020-1472_4626_LT3_Anonym_follwedby_4742_DC_Anony_DC.evtx": {
+   "sha": "658229516622edb89caf7bd3b524f5728f8d74d0",
+   "size": 69632
+  },
+  "Credential Access/babyshark_mimikatz_powershell.evtx": {
+   "sha": "6930c1df910f0392c5781b6dabc9a66685b28d4b",
+   "size": 69632
+  },
+  "Credential Access/dc_applog_ntdsutil_dfir_325_326_327.evtx": {
+   "sha": "dfe2f040541d4cbe2c4f7397ebb5b2317527b798",
+   "size": 69632
+  },
+  "Credential Access/discovery_sysmon_1_iis_pwd_and_config_discovery_appcmd.evtx": {
+   "sha": "11e6d6e672caf3dbdc4e7cc06320af67f3298fc0",
+   "size": 1118208
+  },
+  "Credential Access/etw_rpc_zerologon.evtx": {
+   "sha": "18eba6666ff4524821100e875f64fdd0c9cd5ceb",
+   "size": 1118208
+  },
+  "Credential Access/kerberos_pwd_spray_4771.evtx": {
+   "sha": "631e2c5b27df12dc621032b035ddaea01399c6a5",
+   "size": 69632
+  },
+  "Credential Access/phish_windows_credentials_powershell_scriptblockLog_4104.evtx": {
+   "sha": "5f9d391692c40c7ca017ec32fb4496adf8d2bca1",
+   "size": 69632
+  },
+  "Credential Access/ppl_bypass_ppldump_knowdll_hijack_sysmon_security.evtx": {
+   "sha": "4ed4f27f494f73203eca0ce700a3ed145adc50c3",
+   "size": 69632
+  },
+  "Credential Access/remote_pwd_reset_rpc_mimikatz_postzerologon_target_DC.evtx": {
+   "sha": "db9a9fcdcd851bd84b37b70e6c27644344fdf8cf",
+   "size": 69632
+  },
+  "Credential Access/remote_sam_registry_access_via_backup_operator_priv.evtx": {
+   "sha": "f3cc025b16de920f8db286e6142bec85b3645f42",
+   "size": 69632
+  },
+  "Credential Access/sysmon17_18_kekeo_tsssp_default_np.evtx": {
+   "sha": "f7d0e4d0f288d234336d7d530570d3709b0c6ade",
+   "size": 69632
+  },
+  "Credential Access/sysmon_10_11_lsass_memdump.evtx": {
+   "sha": "bff9065aa47dc408e9c8fa19f91e8b90226529ce",
+   "size": 69632
+  },
+  "Credential Access/sysmon_10_11_outlfank_dumpert_and_andrewspecial_memdump.evtx": {
+   "sha": "7933addfa27feeae8a904d6f1db531aad7713af8",
+   "size": 69632
+  },
+  "Credential Access/sysmon_10_1_memdump_comsvcs_minidump.evtx": {
+   "sha": "e4061a2c87273c72e939d873e04eadaa0a4bc268",
+   "size": 69632
+  },
+  "Credential Access/sysmon_10_lsass_mimikatz_sekurlsa_logonpasswords.evtx": {
+   "sha": "acd53babbae2f1c7876379447d3a5ce09a93f1c7",
+   "size": 69632
+  },
+  "Credential Access/sysmon_13_keylogger_directx.evtx": {
+   "sha": "5e4eeba5eea39f98b1185fc51d96abfe2a737c8e",
+   "size": 69632
+  },
+  "Credential Access/sysmon_2x10_lsass_with_different_pid_RtlCreateProcessReflection.evtx": {
+   "sha": "d2670a6267913855f06a26f941d471dc1bad2b51",
+   "size": 69632
+  },
+  "Credential Access/sysmon_3_10_Invoke-Mimikatz_hosted_Github.evtx": {
+   "sha": "37a4a9180553adb097c29afda7f25109b44ae759",
+   "size": 69632
+  },
+  "Credential Access/sysmon_rdrleakdiag_lsass_dump.evtx": {
+   "sha": "92790c0d0b31c29c7a7493908be4476eed3edfc8",
+   "size": 69632
+  },
+  "Credential Access/tutto_malseclogon.evtx": {
+   "sha": "6f6d7a0ab782b3dafdd1896e6733a905fe898812",
+   "size": 69632
+  },
+  "Defense Evasion/DE_104_system_log_cleared.evtx": {
+   "sha": "841ebfb29eff04b680893e6fc85e91afd510c108",
+   "size": 69632
+  },
+  "Defense Evasion/DE_1102_security_log_cleared.evtx": {
+   "sha": "78a6e19222016dc56fb43a5558eea93472c95ab8",
+   "size": 1118208
+  },
+  "Defense Evasion/DE_BYOV_Zam64_CA_Memdump_sysmon_7_10.evtx": {
+   "sha": "37f40f867a0cdd1c495d95738f7122938a481301",
+   "size": 69632
+  },
+  "Defense Evasion/DE_EventLog_Service_Crashed.evtx": {
+   "sha": "9faeef176e9abaf91a44efcdeb82e60fe6212605",
+   "size": 69632
+  },
+  "Defense Evasion/DE_Fake_ComputerAccount_4720.evtx": {
+   "sha": "16d8131d89c8972a355f69109ca3b165c941d770",
+   "size": 69632
+  },
+  "Defense Evasion/DE_KernelDebug_and_TestSigning_ON_Security_4826.evtx": {
+   "sha": "7ad2e9410588ff73f67906593d7eba3bf63b8e01",
+   "size": 69632
+  },
+  "Defense Evasion/DE_Powershell_CLM_Disabled_Sysmon_12.evtx": {
+   "sha": "f3824f6b1d302ae2dc6adde1e615a3af165746ca",
+   "size": 69632
+  },
+  "Defense Evasion/DE_ProcessHerpaderping_Sysmon_11_10_1_7.evtx": {
+   "sha": "3badbccef551b95fddff43f4332128326ef45b8e",
+   "size": 69632
+  },
+  "Defense Evasion/DE_UAC_Disabled_Sysmon_12_13.evtx": {
+   "sha": "0e1752b0029d777ade8e55f1b675320647799d2e",
+   "size": 69632
+  },
+  "Defense Evasion/DE_WinEventLogSvc_Crash_System_7036.evtx": {
+   "sha": "bc8714a53c5723430517af41330a1a932f300708",
+   "size": 69632
+  },
+  "Defense Evasion/DE_remote_eventlog_svc_crash_byt3bl33d3r_sysmon_17_1_3.evtx": {
+   "sha": "18b2f57137a0f284a4e20b937cd7770fa95e038e",
+   "size": 69632
+  },
+  "Defense Evasion/DE_renamed_psexec_service_sysmon_17_18.evtx": {
+   "sha": "13a36bc48ad4373f649b9f999a8703d048a23b4d",
+   "size": 69632
+  },
+  "Defense Evasion/DE_suspicious_remote_eventlog_svc_access_5145.evtx": {
+   "sha": "0bcf59b357f3b2fc13910720289920cf663ecfcd",
+   "size": 69632
+  },
+  "Defense Evasion/DE_xp_cmdshell_enabled_MSSQL_EID_15457.evtx": {
+   "sha": "5155d6ad3ca7b482f658436875c460ac2d2dd573",
+   "size": 69632
+  },
+  "Defense Evasion/DSE_bypass_BYOV_TDL_dummydriver_sysmon_6_7_13.evtx": {
+   "sha": "4333c9b99b0560aadef37b41beb23278a117da5a",
+   "size": 69632
+  },
+  "Defense Evasion/Sysmon 7  Update Session Orchestrator Dll Hijack.evtx": {
+   "sha": "41faa43d3e3da14e8385d4cd90be808712a4317b",
+   "size": 1118208
+  },
+  "Defense Evasion/Sysmon 7 dllhijack_cdpsshims_CDPSvc.evtx": {
+   "sha": "e930e0fd432165c51c34b2d3b005b0076191fc7d",
+   "size": 69632
+  },
+  "Defense Evasion/Sysmon_10_Evasion_Suspicious_NtOpenProcess_CallTrace.evtx": {
+   "sha": "7b87b7cfdacfdb99e9b19dfe1244dd8823214639",
+   "size": 69632
+  },
+  "Defense Evasion/Sysmon_12_DE_AntiForensics_MRU_DeleteKey.evtx": {
+   "sha": "801f86618b5b3dede9d1bb4f65c5e0dba4318a54",
+   "size": 69632
+  },
+  "Defense Evasion/Win_4985_T1186_Process_Doppelganging.evtx": {
+   "sha": "0f84163caccfbd600ab8b0b9ef734396ed7d67b9",
+   "size": 69632
+  },
+  "Defense Evasion/apt10_jjs_sideloading_prochollowing_persist_as_service_sysmon_1_7_8_13.evtx": {
+   "sha": "4996e7320dfdb5a27f207bf37fe7eac5be2e641e",
+   "size": 69632
+  },
+  "Defense Evasion/de_PsScriptBlockLogging_disabled_sysmon12_13.evtx": {
+   "sha": "f328a55916b11cec834970ad86cb801c5caccbb9",
+   "size": 69632
+  },
+  "Defense Evasion/de_hiding_files_via_attrib_cmdlet.evtx": {
+   "sha": "72ba815624bf0620e4df878d5bee3a74e543db89",
+   "size": 69632
+  },
+  "Defense Evasion/de_portforward_netsh_rdp_sysmon_13_1.evtx": {
+   "sha": "2febe9e623ee2c8141f88380c8507cb632d70ba7",
+   "size": 69632
+  },
+  "Defense Evasion/de_powershell_execpolicy_changed_sysmon_13.evtx": {
+   "sha": "e3e316be560f5367dc3e8b0665d0b7bff1cbb62a",
+   "size": 69632
+  },
+  "Defense Evasion/de_sysmon_13_VBA_Security_AccessVBOM.evtx": {
+   "sha": "da8aee77b890a6fb02d4336aa029e7bf4b2d8cc0",
+   "size": 69632
+  },
+  "Defense Evasion/de_unmanagedpowershell_psinject_sysmon_7_8_10.evtx": {
+   "sha": "7b28dd1e59013fb92831fd0f47abd11690246bae",
+   "size": 69632
+  },
+  "Defense Evasion/evasion_codeinj_odzhan_conhost_sysmon_10_1.evtx": {
+   "sha": "7307ccc85f8da2a67f2072589cd22634c738ce37",
+   "size": 69632
+  },
+  "Defense Evasion/evasion_codeinj_odzhan_spoolsv_sysmon_10_1.evtx": {
+   "sha": "9a411ab0d2bea28554c9f99cde207aaf9f43df44",
+   "size": 69632
+  },
+  "Defense Evasion/faxhell_sysmon_7_1_18_3_bindshell_dllhijack.evtx": {
+   "sha": "699f7cb90f700e98457a6587ed38469f6d88f8d6",
+   "size": 69632
+  },
+  "Defense Evasion/meterpreter_migrate_to_explorer_sysmon_8.evtx": {
+   "sha": "bd16e7b106f741d2c248583276837b7b92201f0f",
+   "size": 69632
+  },
+  "Defense Evasion/process_suspend_sysmon_10_ga_800.evtx": {
+   "sha": "a2d8d0fda6d9e6a2b0b9c7ebe133429bab760d62",
+   "size": 69632
+  },
+  "Defense Evasion/sideloading_wwlib_sysmon_7_1_11.evtx": {
+   "sha": "9d387c3e83dab946fbc59f1fbfa0a7c1813b5f86",
+   "size": 69632
+  },
+  "Defense Evasion/sysmon_10_1_ppid_spoofing.evtx": {
+   "sha": "70c8b9c6494dbbc7a000cdde2d48530adac3d518",
+   "size": 69632
+  },
+  "Defense Evasion/sysmon_13_rdp_settings_tampering.evtx": {
+   "sha": "14f391a02047f8e9158bdbcf61061e8fef690b43",
+   "size": 69632
+  },
+  "Defense Evasion/sysmon_2_11_evasion_timestomp_MACE.evtx": {
+   "sha": "466f021b95061e0d36de5cbceeb0812cde110651",
+   "size": 69632
+  },
+  "Discovery/4799_remote_local_groups_enumeration.evtx": {
+   "sha": "5d98700e7d872f9d0a38e1acc26ac94f37b6d621",
+   "size": 69632
+  },
+  "Discovery/Discovery_Remote_System_NamedPipes_Sysmon_18.evtx": {
+   "sha": "1a52be5bdd3ebf553ecd49969c4afb3fa7a0ea51",
+   "size": 69632
+  },
+  "Discovery/dicovery_4661_net_group_domain_admins_target.evtx": {
+   "sha": "a22c64eeabeb7a50b546205ce725c7a7a9300676",
+   "size": 1118208
+  },
+  "Discovery/discovery_UEFI_Settings_rweverything_sysmon_6.evtx": {
+   "sha": "d8dcea32a6b0f96265cf5cdad7456aea447a2472",
+   "size": 69632
+  },
+  "Discovery/discovery_bloodhound.evtx": {
+   "sha": "578d89be0780c7ce45d5984c9e97bfb4feedaeaf",
+   "size": 69632
+  },
+  "Discovery/discovery_enum_shares_target_sysmon_3_18.evtx": {
+   "sha": "8dcee07ad3c6400707fc7416ac4484d32dda3f12",
+   "size": 69632
+  },
+  "Discovery/discovery_local_user_or_group_windows_security_4799_4798.evtx": {
+   "sha": "d57af9511ac8509408c7aa3dbbbc6da1b81958e6",
+   "size": 69632
+  },
+  "Discovery/discovery_meterpreter_ps_cmd_process_listing_sysmon_10.evtx": {
+   "sha": "b810604c53b1991d1bbe3d17b635cfacb00af523",
+   "size": 1118208
+  },
+  "Discovery/discovery_psloggedon.evtx": {
+   "sha": "5707c53e5caf19bf9767e215f0d4bfeefc6c48c5",
+   "size": 69632
+  },
+  "Discovery/discovery_sysmon_18_Invoke_UserHunter_NetSessionEnum_DC-srvsvc.evtx": {
+   "sha": "ef803dce264b23cf2225721d71c45588af726bce",
+   "size": 69632
+  },
+  "Discovery/discovery_sysmon_3_Invoke_UserHunter_SourceMachine.evtx": {
+   "sha": "0326abe9dfea6460270879fe0821023409464f6b",
+   "size": 69632
+  },
+  "Execution/Exec_sysmon_meterpreter_reversetcp_msipackage.evtx": {
+   "sha": "3b0cb126097c681ceafdb253fac64e649ee9187c",
+   "size": 69632
+  },
+  "Execution/Exec_via_cpl_Application_Experience_EventID_17_ControlPanelApplet.evtx": {
+   "sha": "6b7f289e215bc85cdfd99302421a8ada50d8f62f",
+   "size": 69632
+  },
+  "Execution/Sysmon_Exec_CompiledHTML.evtx": {
+   "sha": "b3c9d9737d207dbb4d3d5289c18482be9c9f704e",
+   "size": 69632
+  },
+  "Execution/Sysmon_meterpreter_ReflectivePEInjection_to_notepad_.evtx": {
+   "sha": "51732f54cc6bec43e09c535638da4662899e0bfe",
+   "size": 69632
+  },
+  "Execution/evasion_execution_imageload_wuauclt_lolbas.evtx": {
+   "sha": "17ec1183fa41876169a987a5146eb3606631dcfc",
+   "size": 69632
+  },
+  "Execution/exec_driveby_cve-2018-15982_sysmon_1_10.evtx": {
+   "sha": "6ad46c37f7c98e46ab8094894d620b782e4515b2",
+   "size": 69632
+  },
+  "Execution/exec_msxsl_xsl_sysmon_1_7.evtx": {
+   "sha": "1d1bc7d111875fa5123353491a2d5fe38c0ec7b9",
+   "size": 69632
+  },
+  "Execution/exec_persist_rundll32_mshta_scheduledtask_sysmon_1_3_11.evtx": {
+   "sha": "df1b05605a184e6d9ebb82bae7ceaf3ed565bfe0",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_11_lolbin_rundll32_openurl_FileProtocolHandler.evtx": {
+   "sha": "128173e2b9331842bc7a58405824d8366fa3ea39",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_11_lolbin_rundll32_shdocvw_openurl.evtx": {
+   "sha": "e5485261e0c7a3fb528c9c6a49e03edbfa717d9b",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_11_lolbin_rundll32_zipfldr_RouteTheCall.evtx": {
+   "sha": "e7d57a676ddf318d5135887448e8950e8fd1e62c",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_7_jscript9_defense_evasion.evtx": {
+   "sha": "2157760cbfb19c02a1b6d0332b348d23a31f488c",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_ftp.evtx": {
+   "sha": "afcdb6dcebf0e17be9e817b59c3c257eebdcad51",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_lolbin_pcalua.evtx": {
+   "sha": "d995ec91e9b09e43181c78245208c184727d9310",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_lolbin_renamed_regsvr32_scrobj.evtx": {
+   "sha": "5f769a862d91d08b0af2704bfe0de76a2a12e21a",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_lolbin_rundll32_advpack_RegisterOCX.evtx": {
+   "sha": "9a348504cb9215102605cedadc9341c41d5d5a3b",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_1_rundll32_pcwutl_LaunchApplication.evtx": {
+   "sha": "309bcd9f54f908a5225583367d3853c1a5293d6e",
+   "size": 69632
+  },
+  "Execution/exec_sysmon_lobin_regsvr32_sct.evtx": {
+   "sha": "c824fddf0ae306c52a4fe21df6765e6796d9ea8e",
+   "size": 69632
+  },
+  "Execution/exec_wmic_xsl_internet_sysmon_3_1_11.evtx": {
+   "sha": "a9c533b028394ab10dcb2f0a00917f41d9054b1f",
+   "size": 69632
+  },
+  "Execution/execution_evasion_visual_studio_prebuild_event.evtx": {
+   "sha": "92fba371ed1c6f9e98c54d6b46d3b03d0a80c2f9",
+   "size": 69632
+  },
+  "Execution/revshell_cmd_svchost_sysmon_1.evtx": {
+   "sha": "7f1ae2f66c28933824514bf75142c15336f82589",
+   "size": 69632
+  },
+  "Execution/rogue_msi_url_1040_1042.evtx": {
+   "sha": "e5ee01d8e59518f03f2ca86b7ff5b67dd89ae58c",
+   "size": 1118208
+  },
+  "Execution/susp_explorer_exec.evtx": {
+   "sha": "fbfe43d2a40820a832ffd0d030251a3339905dc6",
+   "size": 69632
+  },
+  "Execution/susp_explorer_exec_root_cmdline_@rimpq_@CyberRaiju.evtx": {
+   "sha": "6de7138015d2d91116c0f7fc16d8b4b2cae4860a",
+   "size": 69632
+  },
+  "Execution/sysmon_11_1_lolbas_downldr_desktopimgdownldr.evtx": {
+   "sha": "78d42e9178b80707bc9947d1a6b97b32438caa4f",
+   "size": 69632
+  },
+  "Execution/sysmon_1_11_rundll32_cpl_ostap.evtx": {
+   "sha": "b87951a41a9e302f23375728b9ce905386a2e80e",
+   "size": 69632
+  },
+  "Execution/sysmon_exec_from_vss_persistence.evtx": {
+   "sha": "971fb1e85badd1fa404045b007576bd2ee8ba4f2",
+   "size": 69632
+  },
+  "Execution/sysmon_lolbas_rundll32_zipfldr_routethecall_shell.evtx": {
+   "sha": "7ca1845d879a1a4d2bdb171228cbc6258892db3f",
+   "size": 69632
+  },
+  "Execution/sysmon_lolbin_bohops_vshadow_exec.evtx": {
+   "sha": "c3a27161a8be128f019285abda841b11deebdd8d",
+   "size": 69632
+  },
+  "Execution/sysmon_mshta_sharpshooter_stageless_meterpreter.evtx": {
+   "sha": "5ae5a5564a17e33349cfc37bc4a0fe40efb4c389",
+   "size": 69632
+  },
+  "Execution/sysmon_vbs_sharpshooter_stageless_meterpreter.evtx": {
+   "sha": "7391ef7ed2530fa9497720aecc930c1387427474",
+   "size": 69632
+  },
+  "Execution/sysmon_zipexec.evtx": {
+   "sha": "90b5df73dddc24941da1b610332b98ea1f15d23e",
+   "size": 69632
+  },
+  "Execution/temp_scheduled_task_4698_4699.evtx": {
+   "sha": "9fc179fe1ac4a07733ef956f7b66046ddac362be",
+   "size": 69632
+  },
+  "Execution/windows_bits_4_59_60_lolbas desktopimgdownldr.evtx": {
+   "sha": "2c2db1140574c21ff1024d98c2bb8cbc71395d95",
+   "size": 69632
+  },
+  "Lateral Movement/DFIR_RDP_Client_TimeZone_RdpCoreTs_104_example.evtx": {
+   "sha": "637443cdc0bccc66f0b9e275ec67367f6accdd4b",
+   "size": 69632
+  },
+  "Lateral Movement/ImpersonateUser-via local Pass The Hash Sysmon and Security.evtx": {
+   "sha": "def2fad1cee704b439f58d86cea7a8f6ca25ba3d",
+   "size": 69632
+  },
+  "Lateral Movement/LM_4624_mimikatz_sekurlsa_pth_source_machine.evtx": {
+   "sha": "3cf2a8ba7a1409656143d17de21ba0162ae3c00f",
+   "size": 69632
+  },
+  "Lateral Movement/LM_5145_Remote_FileCopy.evtx": {
+   "sha": "7e4da59a36d98eccfd4887f09098d4a69b218d9a",
+   "size": 1118208
+  },
+  "Lateral Movement/LM_DCOM_MSHTA_LethalHTA_Sysmon_3_1.evtx": {
+   "sha": "0d346b539070bf5a55c5638e883d926d1b163d3e",
+   "size": 69632
+  },
+  "Lateral Movement/LM_ImageLoad_NFSH_Sysmon_7.evtx": {
+   "sha": "a0fe87ff6b56aef79bb079108df8fe28d7e6b227",
+   "size": 69632
+  },
+  "Lateral Movement/LM_NewShare_Added_Sysmon_12_13.evtx": {
+   "sha": "801f6c493f9b26686fe1829e03e7bfb523b74385",
+   "size": 69632
+  },
+  "Lateral Movement/LM_PowershellRemoting_sysmon_1_wsmprovhost.evtx": {
+   "sha": "ec9defca52aa26499e8e2fc5c0ce1668e538c30f",
+   "size": 69632
+  },
+  "Lateral Movement/LM_REMCOM_5145_TargetHost.evtx": {
+   "sha": "cdd4c4fdcf877ea06cc85341a1c4d1454f1a952a",
+   "size": 69632
+  },
+  "Lateral Movement/LM_Remote_Service01_5145_svcctl.evtx": {
+   "sha": "fc7e3b53aee4dbf13040084c7e118c2e3724cdb6",
+   "size": 69632
+  },
+  "Lateral Movement/LM_Remote_Service02_7045.evtx": {
+   "sha": "defba62c09d9c2a478a0048a4f08ffdea32dac22",
+   "size": 69632
+  },
+  "Lateral Movement/LM_ScheduledTask_ATSVC_target_host.evtx": {
+   "sha": "43c10aff29e87d3f5cd3307fe545d32963feed26",
+   "size": 69632
+  },
+  "Lateral Movement/LM_WMIC_4648_rpcss.evtx": {
+   "sha": "8dd1423a0b720404daf953bb5a6f7ea1ee311f0c",
+   "size": 69632
+  },
+  "Lateral Movement/LM_WMI_4624_4688_TargetHost.evtx": {
+   "sha": "de0c7ba049c4242254f0243a6053247dde88f8bb",
+   "size": 69632
+  },
+  "Lateral Movement/LM_add_new_namedpipe_tp_nullsession_registry_turla_like_ttp.evtx": {
+   "sha": "23d883e59f09dacebcb6ff12134aae1b23d07bce",
+   "size": 69632
+  },
+  "Lateral Movement/LM_dcom_shwnd_shbrwnd_mmc20_failed_traces_system_10016.evtx": {
+   "sha": "aeb71458e771f71539ee1b5e7ba33efe6715d650",
+   "size": 69632
+  },
+  "Lateral Movement/LM_impacket_docmexec_mmc_sysmon_01.evtx": {
+   "sha": "6aa2c962ee32d727b1ff81bc71f4003ee6d8f9e1",
+   "size": 69632
+  },
+  "Lateral Movement/LM_regsvc_DirectoryServiceExtPt_Lsass_NTDS_AdamXpn.evtx": {
+   "sha": "348f37239e01c01f35248fdcade2ee87a3b9f151",
+   "size": 69632
+  },
+  "Lateral Movement/LM_renamed_psexecsvc_5145.evtx": {
+   "sha": "f648c59d75e830314c482a4884b5741c01a2389e",
+   "size": 69632
+  },
+  "Lateral Movement/LM_sysmon_1_12_13_3_tsclient_SharpRdp.evtx": {
+   "sha": "1fe952b93b190f634d067feb755f2488a950f08c",
+   "size": 69632
+  },
+  "Lateral Movement/LM_sysmon_3_12_13_1_SharpRDP.evtx": {
+   "sha": "13c1e002e437a27b8937d09e05c4978ab9972e59",
+   "size": 69632
+  },
+  "Lateral Movement/LM_sysmon_3_DCOM_ShellBrowserWindow_ShellWindows.evtx": {
+   "sha": "0ec49e4f472fb1fe9a30732dca7db031b4896002",
+   "size": 69632
+  },
+  "Lateral Movement/LM_sysmon_psexec_smb_meterpreter.evtx": {
+   "sha": "a7a62972fc6cb09aab8d1a9b7bb33c462ae08873",
+   "size": 69632
+  },
+  "Lateral Movement/LM_sysmon_remote_task_src_powershell.evtx": {
+   "sha": "3a7c4e42184082015afec0abcea490576f8a31b7",
+   "size": 69632
+  },
+  "Lateral Movement/LM_tsclient_startup_folder.evtx": {
+   "sha": "f53ca16a5f4a717b6983a5caac4edccd7b34ae5a",
+   "size": 69632
+  },
+  "Lateral Movement/LM_typical_IIS_webshell_sysmon_1_10_traces.evtx": {
+   "sha": "5516c3bcfaba136a1efd3a540a6a5befe9ce6022",
+   "size": 69632
+  },
+  "Lateral Movement/LM_winrm_exec_sysmon_1_winrshost.evtx": {
+   "sha": "6728e9e7ab6c86aae4451c8082f8c6b5d5f156d2",
+   "size": 69632
+  },
+  "Lateral Movement/LM_winrm_target_wrmlogs_91_wsmanShellStarted_poorLog.evtx": {
+   "sha": "8fc51c65efdfa028788d661716d0ed3803bbcde5",
+   "size": 69632
+  },
+  "Lateral Movement/LM_wmi_PoisonHandler_Mr-Un1k0d3r_sysmon_1_13.evtx": {
+   "sha": "eb06ae411a012e5fbc5bb7200ad481a54b43908a",
+   "size": 69632
+  },
+  "Lateral Movement/LM_wmiexec_impacket_sysmon_whoami.evtx": {
+   "sha": "f4ec0d523b68f90934fa10b14cd867960d8e9d4f",
+   "size": 69632
+  },
+  "Lateral Movement/LM_xp_cmdshell_MSSQL_Events.evtx": {
+   "sha": "53d1177c448eb796d2bc3302d9fb2a22fcef3f54",
+   "size": 69632
+  },
+  "Lateral Movement/MSSQL_15281_xp_cmdshell_exec_failed_attempt.evtx": {
+   "sha": "68decb61aa53db74f1f357bc49287df7dd535cfb",
+   "size": 69632
+  },
+  "Lateral Movement/RemotePowerShell_MS_Windows-Remote_Management_EventID_169.evtx": {
+   "sha": "c718e61781af73451c9eb05100a3948e9117ee90",
+   "size": 69632
+  },
+  "Lateral Movement/dfir_rdpsharp_target_RdpCoreTs_168_68_131.evtx": {
+   "sha": "aed91789fc0735bdf31d5cc8163a7b3a5f5ef2b4",
+   "size": 69632
+  },
+  "Lateral Movement/lateral_movement_startup_3_11.evtx": {
+   "sha": "143c1290a3ee81186101a2bcfe60ff346e484f79",
+   "size": 69632
+  },
+  "Lateral Movement/lm_remote_registry_sysmon_1_13_3.evtx": {
+   "sha": "6222ea48fd02a9b79d9f3db8989acf6882564d82",
+   "size": 69632
+  },
+  "Lateral Movement/lm_sysmon_18_remshell_over_namedpipe.evtx": {
+   "sha": "3bdc2510fd46213d8cc750c28a65f30edd6c97a7",
+   "size": 69632
+  },
+  "Lateral Movement/net_share_drive_5142.evtx": {
+   "sha": "5df9083756f00427e2edfb10091a727b21566fb6",
+   "size": 69632
+  },
+  "Lateral Movement/powercat_revShell_sysmon_1_3.evtx": {
+   "sha": "56a2acbd97615bc3f8690a7d27172ddd298818a3",
+   "size": 69632
+  },
+  "Lateral Movement/remote task update 4624 4702 same logonid.evtx": {
+   "sha": "9e2aee6333d0416b16ebdaf4ec87351db6af35d4",
+   "size": 69632
+  },
+  "Lateral Movement/remote_file_copy_system_proc_file_write_sysmon_11.evtx": {
+   "sha": "08657225ff02734eeecc50f14e8f28b9f69a9d78",
+   "size": 69632
+  },
+  "Lateral Movement/sharprdp_sysmon_7_mstscax.dll.evtx": {
+   "sha": "702fed92b393e16948f7f2982d1f0bc24784337d",
+   "size": 69632
+  },
+  "Lateral Movement/smb_bi_auth_conn_spoolsample.evtx": {
+   "sha": "c3f44db21642a9d73159ca6daadef46383d1258f",
+   "size": 69632
+  },
+  "Lateral Movement/smbmap_upload_exec_sysmon.evtx": {
+   "sha": "5c863374df30a2587d9c79d35f7bec0d76028e91",
+   "size": 69632
+  },
+  "Lateral Movement/spoolsample_5145.evtx": {
+   "sha": "28c41f6e51babab026bcec52295405f82cd34818",
+   "size": 69632
+  },
+  "Lateral Movement/sysmon_1_exec_via_sql_xpcmdshell.evtx": {
+   "sha": "59582f9b42f261e65337408ea06819d46aed8440",
+   "size": 69632
+  },
+  "Lateral Movement/wmi_remote_registry_sysmon.evtx": {
+   "sha": "dc12dd886499de2cafb47622248f6c9780d03185",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_ps_4104.evtx": {
+   "sha": "ff914d442b6a0c9b41acf87e140046a349a8d693",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_ps_800_get-item.evtx": {
+   "sha": "33f50ed64930c85779f99da72faaa32d3e56b1a2",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_ps_800_invoke-item.evtx": {
+   "sha": "fb7d2059536e0fe65da7e747302dc8399c4c885a",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_ps_800_new-item.evtx": {
+   "sha": "31dea987db99d1dfb148f463a0e1e6b014071445",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_ps_800_new-object.evtx": {
+   "sha": "9c1184d193ca20fe06f5447348e9ea974d4dd1ac",
+   "size": 69632
+  },
+  "Other/emotet/exec_emotet_sysmon_1.evtx": {
+   "sha": "42be1120e728fd93c3d9b520a8c46386abb6d5dd",
+   "size": 69632
+  },
+  "Other/maldoc_mshta_via_shellbrowserwind_rundll32.evtx": {
+   "sha": "e4f737adf7af751eb5c70698d6dc6865a18a77c6",
+   "size": 69632
+  },
+  "Other/rdpcorets_148_mst120_bluekeep_rpdscan_full.evtx": {
+   "sha": "8791aaac85482dc78689d22036e20e01e825152f",
+   "size": 1118208
+  },
+  "Persistence/DACL_DCSync_Right_Powerview_ Add-DomainObjectAcl.evtx": {
+   "sha": "201f7d98a70ce22e304051b8dfdbe141663bb5d8",
+   "size": 1118208
+  },
+  "Persistence/Network_Service_Guest_added_to_admins_4732.evtx": {
+   "sha": "e04868866aca1e110588479f9562ab7f84876fbf",
+   "size": 69632
+  },
+  "Persistence/Persistence_Shime_Microsoft-Windows-Application-Experience_Program-Telemetry_500.evtx": {
+   "sha": "e0183d0dc18d856e808596556ba652a5dd05df5d",
+   "size": 69632
+  },
+  "Persistence/Persistence_Winsock_Catalog Change EventId_1.evtx": {
+   "sha": "b1df6ab140952e882099759e0cac57c2b6e626f8",
+   "size": 69632
+  },
+  "Persistence/evasion_persis_hidden_run_keyvalue_sysmon_13.evtx": {
+   "sha": "936196bca9e18b00b81ca9bdb7aa5792608666a8",
+   "size": 69632
+  },
+  "Persistence/persist_bitsadmin_Microsoft-Windows-Bits-Client-Operational.evtx": {
+   "sha": "ad17cfff01aec83087608b441598d90d30835f98",
+   "size": 69632
+  },
+  "Persistence/persist_firefox_comhijack_sysmon_11_13_7_1.evtx": {
+   "sha": "51efc5a1864c191f51a23401f9a13a5410aa5359",
+   "size": 69632
+  },
+  "Persistence/persist_turla_outlook_backdoor_comhijack.evtx": {
+   "sha": "a36697d62299997bf0059d792549511b2d7101d6",
+   "size": 69632
+  },
+  "Persistence/persist_valid_account_guest_rid_hijack.evtx": {
+   "sha": "32d315edd4fbcad44c346dccd3db354c27681ba2",
+   "size": 69632
+  },
+  "Persistence/persistence_SilentProcessExit_ImageHijack_sysmon_13_1.evtx": {
+   "sha": "56a115b78dcce552172b363374231004a4e3a719",
+   "size": 69632
+  },
+  "Persistence/persistence_accessibility_features_osk_sysmon1.evtx": {
+   "sha": "eac7b71badabc9b739109fef0ed5572b4b66eeaa",
+   "size": 69632
+  },
+  "Persistence/persistence_hidden_local_account_sysmon.evtx": {
+   "sha": "d2da07e5eab71f1f47985e1159eb772522c5f535",
+   "size": 69632
+  },
+  "Persistence/persistence_pendingGPO_sysmon_13.evtx": {
+   "sha": "a47de79d5a7ecf4be38171defcced384c0a53e15",
+   "size": 69632
+  },
+  "Persistence/persistence_security_dcshadow_4742.evtx": {
+   "sha": "916a3f4a9e23348c60f582d1ff8927937f20dea4",
+   "size": 69632
+  },
+  "Persistence/persistence_startup_UserShellStartup_Folder_Changed_sysmon_13.evtx": {
+   "sha": "e28478b37c8e47556e88b579c4bd952b2b6289fc",
+   "size": 69632
+  },
+  "Persistence/persistence_sysmon_11_13_1_shime_appfix.evtx": {
+   "sha": "c1dd99bb687e84d72fba8e5c922dfca624b664da",
+   "size": 1118208
+  },
+  "Persistence/sysmon_13_1_persistence_via_winlogon_shell.evtx": {
+   "sha": "1eac3dc52de5cc5088dda0692fa11451f7eb9720",
+   "size": 69632
+  },
+  "Persistence/sysmon_1_persist_bitsjob_SetNotifyCmdLine.evtx": {
+   "sha": "877602a7c9e2501bacaa629d64a0c5b3a1ec433a",
+   "size": 69632
+  },
+  "Persistence/sysmon_1_smss_child_proc_bootexecute_setupexecute.evtx": {
+   "sha": "b433c8f89a848f7ba2ede4302d31530c627d7f7f",
+   "size": 69632
+  },
+  "Persistence/sysmon_20_21_1_CommandLineEventConsumer.evtx": {
+   "sha": "d16afb07e5c9a962e70df0091d42b81fd018880b",
+   "size": 69632
+  },
+  "Persistence/sysmon_local_account_creation_and_added_admingroup_12_13.evtx": {
+   "sha": "781f15c385f01686895fc0c90794b2447ba22404",
+   "size": 69632
+  },
+  "Persistence/wmighost_sysmon_20_21_1.evtx": {
+   "sha": "187e28c0815a9bc99f5702e97534cbc690cc5f14",
+   "size": 69632
+  },
+  "Privilege Escalation/4624 LT3 AnonymousLogon Localhost - JuicyPotato.evtx": {
+   "sha": "1d5793b31f0d7ec56b6d6915b318cc2051b59ee0",
+   "size": 69632
+  },
+  "Privilege Escalation/4765_sidhistory_add_t1178.evtx": {
+   "sha": "2deb14fb7442342dfcb9335e274166a3f31fe835",
+   "size": 69632
+  },
+  "Privilege Escalation/CVE-2020-0796_SMBV3Ghost_LocalPrivEsc_Sysmon_3_1_10.evtx": {
+   "sha": "6d7a5aa4ecb1e55ccce5f3088bbb89d2b95c6844",
+   "size": 69632
+  },
+  "Privilege Escalation/EfsPotato_sysmon_17_18_privesc_seimpersonate_to_system.evtx": {
+   "sha": "9f0192d4d9c745be465ef9601dc8da289c87a231",
+   "size": 69632
+  },
+  "Privilege Escalation/Invoke_TokenDuplication_UAC_Bypass4624.evtx": {
+   "sha": "6d4b5de0d5682cdc8a57a6eaa2e5baf936d137f2",
+   "size": 69632
+  },
+  "Privilege Escalation/NTLM2SelfRelay-med0x2e-security_4624_4688.evtx": {
+   "sha": "85c1f4eb1f5ce602f8d305c155046929054d5659",
+   "size": 69632
+  },
+  "Privilege Escalation/PrivEsc_CVE-2020-1313_Sysmon_13_UScheduler_Cmdline.evtx": {
+   "sha": "3735cbcb1843d5d18e3bf0445bb50032ed1d49dc",
+   "size": 69632
+  },
+  "Privilege Escalation/PrivEsc_Imperson_NetSvc_to_Sys_Decoder_Sysmon_1_17_18.evtx": {
+   "sha": "ad7117b37b3ab77deb1261c967290ec8f07cb41a",
+   "size": 69632
+  },
+  "Privilege Escalation/PrivEsc_NetSvc_SessionToken_Retrival_via_localSMB_Auth_5145.evtx": {
+   "sha": "7ea3f15064810b694a55cb9b4143e2ed58dae1d4",
+   "size": 69632
+  },
+  "Privilege Escalation/PrivEsc_SeImpersonatePriv_enabled_back_for_upnp_localsvc_4698.evtx": {
+   "sha": "2dfb0afbf7a2bbf1b0005675cf5d09b38b616db3",
+   "size": 69632
+  },
+  "Privilege Escalation/RogueWinRM.evtx": {
+   "sha": "0eb7f0ad656b1cc6daf0082d18407b0d748d1cde",
+   "size": 69632
+  },
+  "Privilege Escalation/Runas_4624_4648_Webshell_CreateProcessAsUserA.evtx": {
+   "sha": "3a55bb8011ac801ec4ead11933b0c2869f60dc41",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_13_1_UACBypass_SDCLTBypass.evtx": {
+   "sha": "c8caa190da74afc79dd27fb97ee5dee1fa8738fc",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_13_1_UAC_Bypass_EventVwrBypass.evtx": {
+   "sha": "62675b25d95852f4cbbdd1b86953337c2a2808dc",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_22.evtx": {
+   "sha": "6bb68c539d81669b070433114fd5bcdc0a43fd36",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_23.evtx": {
+   "sha": "3f128695e2d04dbaa11356af331d4ae418e53917",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_30.evtx": {
+   "sha": "379cd8cd25be7ce3dba295264d3fd770ecc8958f",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_32.evtx": {
+   "sha": "093970dbf3155b00952a1464544e33c5eb432c8c",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_33.evtx": {
+   "sha": "524b489095a655393bf4a513c639b4f211d8213e",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_34.evtx": {
+   "sha": "ef0306e22792c094ccce72704864850f0a7a4f0a",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_36_FileCreate.evtx": {
+   "sha": "c4e4df7d25e244e7e113e7a2ddf30f5bab6dedc9",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_37_FileCreate.evtx": {
+   "sha": "39819e49b99bc2da1ac6de8d213bdfc5921d9982",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_38.evtx": {
+   "sha": "755c581aeb1963a39179cb56586659e8c92fc77d",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_39.evtx": {
+   "sha": "165a9fe99501068f5043cd63f9cc7eebb5850131",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_41.evtx": {
+   "sha": "75825cfd19944529f0d0fb50edbffce34d712297",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_43.evtx": {
+   "sha": "310b7dec9c49857098cda4f922f2a82e0a973e25",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_45.evtx": {
+   "sha": "1c0a5f38107df456587b6ae85248da9fa9318e83",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_53.evtx": {
+   "sha": "b4a09ab3137bd5027189af672f6492dbf036c5d8",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_54.evtx": {
+   "sha": "b3eb74e3d29cc2f8eb4bbf46debda82f225192e4",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_56.evtx": {
+   "sha": "d65720523c8bcea046d20bc4106675d7ac97abf4",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_63.evtx": {
+   "sha": "35bab6503264fe89e269d0b2e4b683d5af091003",
+   "size": 69632
+  },
+  "Privilege Escalation/Sysmon_UACME_64.evtx": {
+   "sha": "7e44ea6e985da653eb12ae72b168f2b3af9df069",
+   "size": 1118208
+  },
+  "Privilege Escalation/Sysmon_uacme_58.evtx": {
+   "sha": "58a1379ede87a9a27d617459701c2d53e8a3bd52",
+   "size": 69632
+  },
+  "Privilege Escalation/System_7045_namedpipe_privesc.evtx": {
+   "sha": "2c450a19fd66f2585a2705ce993e0f71776500c8",
+   "size": 69632
+  },
+  "Privilege Escalation/UACME_59_Sysmon.evtx": {
+   "sha": "f6bad85d19539a92ce2c0ee1f3f49663c6e3052c",
+   "size": 69632
+  },
+  "Privilege Escalation/UACME_61_Changepk.evtx": {
+   "sha": "9a6f7c8973c7e1d63c50fbf167e1381657043d9c",
+   "size": 69632
+  },
+  "Privilege Escalation/eop_appcontainer_il_broker_filewrite.evtx": {
+   "sha": "01258655b67e5dd84c55dee69f9a78a1d496930a",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_KrbRelayUp_windows_4624.evtx": {
+   "sha": "f8f10d12ccdb800142e2c5ef40b7130e30769e55",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_registry_symlink_CVE-2020-1377.evtx": {
+   "sha": "2734fd8163620635b8fdc5fa1290c42d1b4f7955",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_roguepotato_sysmon_17_18.evtx": {
+   "sha": "c1c5503dbc77ed265de34a145d090c9939b70db1",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_rotten_potato_from_webshell_metasploit_sysmon_1_8_3.evtx": {
+   "sha": "41e0bffb3441d1ac1675124d2d0c57c08f61c9dd",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_seimpersonate_tosys_spoolsv_sysmon_17_18.evtx": {
+   "sha": "73050c3556aed2a1865a6e32e42c57f8ff37aad9",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_spoolfool_mahdihtm_sysmon_1_11_7_13.evtx": {
+   "sha": "9540ba977404e13dc5e881272aa56b9b80a32434",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_spoolsv_spl_file_write_sysmon11.evtx": {
+   "sha": "6b275277af2f17469c4dd622b5b25eed165e03ce",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_sysmon_cve_20201030_spooler.evtx": {
+   "sha": "1cc979d23df1f6c01771c1e46372d0596fb1cdf1",
+   "size": 69632
+  },
+  "Privilege Escalation/privesc_unquoted_svc_sysmon_1_11.evtx": {
+   "sha": "cdfaf0ac86059b3db7c2017fd0945fdbeb323859",
+   "size": 1118208
+  },
+  "Privilege Escalation/privexchange_dirkjan.evtx": {
+   "sha": "512b5bbd5a5b1feee67e79d6c28ef972949b6910",
+   "size": 69632
+  },
+  "Privilege Escalation/samaccount_spoofing_CVE-2021-42287_CVE-2021-42278_DC_securitylogs.evtx": {
+   "sha": "9bd4cc21b64fd5367e11ae8b09995ff8523bd7a8",
+   "size": 69632
+  },
+  "Privilege Escalation/security_4624_4673_token_manip.evtx": {
+   "sha": "28a0ada301d06b1570f509bcd8c92ff2b1722885",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_11_1_15_WScriptBypassUAC.evtx": {
+   "sha": "fb6b357b5babe894b8415806caf9718068bd7608",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_11_1_7_uacbypass_cliconfg.evtx": {
+   "sha": "856c297c3f354ba3a98b04cb22d2300f019cc114",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_11_7_1_uacbypass_windirectory_mocking.evtx": {
+   "sha": "d0e4584a7b6160d644386514979891872342783c",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_13_1_12_11_perfmonUACBypass.evtx": {
+   "sha": "a0ebad4448de2226ba92d5b9e598a45ca5efcf0f",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_13_1_compmgmtlauncherUACBypass.evtx": {
+   "sha": "d5527b8e33fe96570c6f5019bec098c925c2063e",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_13_1_meterpreter_getsystem_NamedPipeImpersonation.evtx": {
+   "sha": "893098b3c9a102ca3919657c4c1ff2b57994f744",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_11_exec_as_system_via_schedtask.evtx": {
+   "sha": "c89dc0f8a941f0df40d827774fb028cefe4f7364",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_13_11_cmstp_ini_uacbypass.evtx": {
+   "sha": "7438bb72e5d866b763f132c56eb6543c73185f70",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_13_UACBypass_AppPath_Control.evtx": {
+   "sha": "3c41ce920d0ba54f59f30d432845164c9eef4a7b",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_7_11_mcx2prov_uacbypass.evtx": {
+   "sha": "f8f8cfa5a5283b26dd1ad9e5107ca4b59e487cca",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_7_11_migwiz.evtx": {
+   "sha": "1845e33a89a8f9cf342c1a664875e4ba755233ed",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_7_11_sysprep_uacbypass.evtx": {
+   "sha": "4e921ae7d3faa4fdd4bae45e759848c2df39535b",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_1_7_elevate_uacbypass_sysprep.evtx": {
+   "sha": "9030d41ce7bdf6eabd425ca84037b02f8370d918",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_privesc_from_admin_to_system_handle_inheritance.evtx": {
+   "sha": "27109d85523eb71dfce35bf12d7fbbae3a3f9416",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_privesc_psexec_dwell.evtx": {
+   "sha": "fff75b4528d3646a9fe878e21f15761d08f409c2",
+   "size": 69632
+  },
+  "Privilege Escalation/sysmon_uacbypass_CDSSync_schtask_hijack_byeintegrity5.evtx": {
+   "sha": "b4f45dc6469b078fb3bf902d21ff5c1be728d9a4",
+   "size": 69632
+  },
+  "Privilege Escalation/win10_4703_SeDebugPrivilege_enabled.evtx": {
+   "sha": "4f15a576b4e92a77029fbd55c2d321bbd079e348",
+   "size": 69632
+  },
+  "UACME_59_Sysmon.evtx": {
+   "sha": "f6bad85d19539a92ce2c0ee1f3f49663c6e3052c",
+   "size": 69632
+  }
+ },
+ "license": "GPL-3.0 (not redistributed here; fetched at test time)",
+ "repo": "sbousseaden/EVTX-ATTACK-SAMPLES"
+}

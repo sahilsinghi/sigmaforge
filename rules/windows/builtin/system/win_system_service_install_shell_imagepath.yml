@@ -1,0 +1,56 @@
+title: Service Installed That Runs a Shell or LOLBin
+id: 8e82db07-023a-4625-916b-4189ebd187a0
+status: test
+description: |
+  Detects System event 7045 (a service was installed) where the service binary is a
+  command shell, PowerShell, a script host or a LOLBin, or sits in a user-writable folder.
+  Remote service creation with a shell command line is how Impacket smbexec, Metasploit
+  psexec and many ransomware deployment scripts execute on a target.
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+  - https://attack.mitre.org/techniques/T1569/002/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.persistence
+  - attack.t1543.003
+  - attack.execution
+  - attack.t1569.002
+logsource:
+  product: windows
+  service: system
+detection:
+  selection_event:
+    EventID: 7045
+  selection_imagepath:
+    ImagePath|contains:
+      - 'cmd.exe'
+      - 'cmd /c'
+      - '%COMSPEC%'
+      - 'powershell'
+      - 'pwsh'
+      - 'mshta'
+      - 'rundll32'
+      - 'regsvr32'
+      - 'wscript'
+      - 'cscript'
+      - '\Users\Public\'
+      - '\AppData\'
+      - '\Temp\'
+  condition: all of selection_*
+falsepositives:
+  - Vendor installers that wrap a service in cmd.exe (uncommon; review).
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/win_system_service_install_shell_imagepath
+    negative:
+      - tests/negative/win_system_service_install_shell_imagepath
+    external:
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/LM_Remote_Service02_7045.evtx
+        min_hits: 2

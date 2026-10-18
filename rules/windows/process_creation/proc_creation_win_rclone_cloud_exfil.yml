@@ -1,0 +1,49 @@
+title: Rclone Copying Data to a File-Sharing Remote
+id: de663411-ac8c-4711-a3d0-d0f9566672bb
+status: test
+description: |
+  Detects rclone (including renamed copies, matched by its PE description) copying or
+  syncing data to remotes favoured for exfiltration - MEGA, pCloud, FTP, Dropbox - or with
+  certificate checks disabled. Ransomware affiliates use rclone to steal data before
+  encryption. A company backup job syncing to its own S3 bucket does not match.
+references:
+  - https://attack.mitre.org/techniques/T1567/002/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.exfiltration
+  - attack.t1567.002
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\rclone.exe'
+    - Description: 'Rsync for cloud storage'
+  selection_verb:
+    CommandLine|contains:
+      - ' copy '
+      - ' sync '
+      - ' copyto '
+      - ' move '
+  selection_remote:
+    CommandLine|contains:
+      - 'mega:'
+      - 'pcloud'
+      - 'ftp:'
+      - 'sftp:'
+      - 'dropbox:'
+      - '--no-check-certificate'
+  condition: all of selection_*
+falsepositives:
+  - Staff syncing personal cloud storage with rclone (a policy issue in itself).
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: medium
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_rclone_cloud_exfil
+    negative:
+      - tests/negative/proc_creation_win_rclone_cloud_exfil

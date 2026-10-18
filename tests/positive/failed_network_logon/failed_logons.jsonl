@@ -1,0 +1,2 @@
+{"EventID": 4625, "Channel": "Security", "Computer": "SRV-DC01.corp.local", "@timestamp": "2026-10-01T10:15:14.000Z", "TargetUserName": "administrator", "LogonType": "3", "IpAddress": "10.10.99.66", "Status": "0xc000006d", "SubStatus": "0xc000006a"}
+{"EventID": 4625, "Channel": "Security", "Computer": "SRV-DC01.corp.local", "@timestamp": "2026-10-01T10:15:51.000Z", "TargetUserName": "bob", "LogonType": "10", "IpAddress": "10.10.20.14", "Status": "0xc000006d", "SubStatus": "0xc000006a"}

@@ -1,0 +1,57 @@
+name: deploy-rules
+
+# After a merge to main passes the gate, export the rules in deployable form and,
+# when lab SIEM credentials are configured, push them. Without secrets the
+# bundles are still built and attached to the run.
+
+on:
+  workflow_run:
+    workflows: [detections]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+
+      - name: Build bundles
+        run: |
+          sigmaforge export elastic -o out/deploy/elastic-rules.ndjson
+          sigmaforge export elastic-template -o out/deploy/elastic-caseless-component-template.json
+          sigmaforge export splunk -o out/deploy/savedsearches.conf
+
+      - name: Push to the lab Elastic / Kibana
+        env:
+          KIBANA_URL: ${{ secrets.KIBANA_URL }}
+          KIBANA_API_KEY: ${{ secrets.KIBANA_API_KEY }}
+          ES_URL: ${{ secrets.ES_URL }}
+        run: |
+          if [ -z "$KIBANA_URL" ] || [ -z "$KIBANA_API_KEY" ]; then
+            echo "No KIBANA_URL / KIBANA_API_KEY secrets: skipping deployment (bundles are attached as artifacts)."
+            exit 0
+          fi
+          if [ -n "$ES_URL" ]; then
+            curl -fsS -X PUT "$ES_URL/_component_template/sigmaforge-caseless" \
+              -H "Authorization: ApiKey $KIBANA_API_KEY" -H 'Content-Type: application/json' \
+              --data-binary @out/deploy/elastic-caseless-component-template.json
+          fi
+          curl -fsS -X POST "$KIBANA_URL/api/detection_engine/rules/_import?overwrite=true" \
+            -H "Authorization: ApiKey $KIBANA_API_KEY" -H 'kbn-xsrf: true' \
+            -F "file=@out/deploy/elastic-rules.ndjson"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deployable-rules
+          path: out/deploy/

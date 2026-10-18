@@ -1,0 +1,51 @@
+title: Impacket wmiexec / dcomexec Command Output Redirection
+id: 705c3218-37eb-4ecc-8c51-505839de2c0e
+status: test
+description: |
+  Detects the command line Impacket's wmiexec.py and dcomexec.py build for every command
+  they run: cmd.exe /Q /c <command> 1> \\127.0.0.1\ADMIN$\__<timestamp> 2>&1. The output
+  file on the ADMIN$ share is how the attacker reads results back. The parent differs
+  (WmiPrvSE for wmiexec, mmc for dcomexec), so the rule keys on the command line only.
+references:
+  - https://attack.mitre.org/techniques/T1047/
+  - https://attack.mitre.org/techniques/T1021/003/
+  - https://github.com/fortra/impacket/blob/master/examples/wmiexec.py
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.execution
+  - attack.t1047
+  - attack.lateral-movement
+  - attack.t1021.003
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    Image|endswith: '\cmd.exe'
+  selection_cli:
+    CommandLine|contains|all:
+      - '/Q'
+      - '/c'
+      - '\\127.0.0.1\'
+      - '2>&1'
+  condition: all of selection_*
+falsepositives:
+  - None known; the ADMIN$ loopback redirection pattern is specific to these tools.
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.01
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_impacket_exec_output_redirect
+    negative:
+      - tests/negative/proc_creation_win_impacket_exec_output_redirect
+    external:
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/LM_wmiexec_impacket_sysmon_whoami.evtx
+        min_hits: 3
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/LM_impacket_docmexec_mmc_sysmon_01.evtx
+        min_hits: 1

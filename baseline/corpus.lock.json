@@ -1,0 +1,12 @@
+{
+  "generator": "sigmaforge.baseline",
+  "generator_version": 1,
+  "file": "synthetic-baseline.jsonl.gz",
+  "hosts": 12,
+  "days": 14,
+  "start": "2026-09-07T00:00:00.220Z",
+  "end": "2026-09-20T23:59:13.316Z",
+  "seed": 1337,
+  "events": 58391,
+  "sha256": "f0d1e3c49003a99aea67b91d5bc28d0d8cfd1849728fabee726cbe5523748b8d"
+}

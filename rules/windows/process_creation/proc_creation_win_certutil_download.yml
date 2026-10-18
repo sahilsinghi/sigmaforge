@@ -1,0 +1,49 @@
+title: Certutil Used to Download a File
+id: f0f8a522-fec0-4df8-b231-a3d17750dee2
+status: test
+description: |
+  Detects certutil.exe fetching content from a URL with -urlcache or -verifyctl. Certutil is
+  a signed Windows binary, so attackers use it as a downloader (ingress tool transfer)
+  instead of bringing their own.
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.command-and-control
+  - attack.t1105
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\certutil.exe'
+    - OriginalFileName: 'CertUtil.exe'
+  selection_flag:
+    CommandLine|windash|contains:
+      - ' -urlcache '
+      - ' -verifyctl '
+      - ' -url '
+  selection_remote:
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+      - 'ftp://'
+  condition: all of selection_*
+falsepositives:
+  - Administrators fetching certificate revocation lists by hand (rare).
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_certutil_download
+    negative:
+      - tests/negative/proc_creation_win_certutil_download
+    external:
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/panache_sysmon_vs_EDRTestingScript.evtx
+        min_hits: 1

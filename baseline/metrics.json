@@ -1,0 +1,469 @@
+{
+  "attack_version": "19.1",
+  "benign": {
+    "events": 58391,
+    "hosts": 12,
+    "host_days": 168
+  },
+  "summary": {
+    "rules": 23,
+    "alerting_rules": 20,
+    "building_blocks": 3,
+    "passing": 23,
+    "failing": 0,
+    "techniques_tagged": 24,
+    "techniques_covered": 24,
+    "tactics_covered": 12,
+    "lint_errors": 0,
+    "lint_warnings": 0
+  },
+  "covered_techniques": [
+    "T1003.001",
+    "T1021.002",
+    "T1021.003",
+    "T1027",
+    "T1033",
+    "T1047",
+    "T1053.005",
+    "T1059.001",
+    "T1069.002",
+    "T1098",
+    "T1105",
+    "T1110.001",
+    "T1110.003",
+    "T1204.002",
+    "T1218.005",
+    "T1482",
+    "T1490",
+    "T1543.003",
+    "T1547.001",
+    "T1566.001",
+    "T1567.002",
+    "T1569.002",
+    "T1572",
+    "T1685.005"
+  ],
+  "rules": {
+    "win_security_audit_log_cleared": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 0.7,
+      "building_block": false,
+      "techniques": [
+        "T1685.005"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "win_security_member_added_to_local_admins": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.005952380952380952,
+      "externals_passed": 1,
+      "quality": 0.8,
+      "building_block": false,
+      "techniques": [
+        "T1098"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "win_system_service_install_shell_imagepath": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 0.9,
+      "building_block": false,
+      "techniques": [
+        "T1543.003",
+        "T1569.002"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "failed_network_logon": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 1.505952380952381,
+      "externals_passed": 0,
+      "quality": 0.425,
+      "building_block": true,
+      "techniques": [
+        "T1110"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "successful_network_logon": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 20.375,
+      "externals_passed": 0,
+      "quality": 0.34,
+      "building_block": true,
+      "techniques": [
+        "T1110"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "failed_logon_burst": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 0,
+      "quality": 0.425,
+      "building_block": true,
+      "techniques": [
+        "T1110.001"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": false,
+        "lucene_stock": false,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "bruteforce_then_success": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 0,
+      "quality": 0.5,
+      "building_block": false,
+      "techniques": [
+        "T1110.001"
+      ],
+      "conversions": {
+        "splunk": false,
+        "lucene": false,
+        "lucene_stock": false,
+        "esql": false,
+        "kql": false
+      }
+    },
+    "password_spray": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 0,
+      "quality": 0.5,
+      "building_block": false,
+      "techniques": [
+        "T1110.003"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": false,
+        "lucene_stock": false,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "dns_query_win_tunneling_service_domains": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.005952380952380952,
+      "externals_passed": 0,
+      "quality": 0.525,
+      "building_block": false,
+      "techniques": [
+        "T1572"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "pipe_created_win_psexec_service_pipes": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.023809523809523808,
+      "externals_passed": 2,
+      "quality": 0.9,
+      "building_block": false,
+      "techniques": [
+        "T1569.002",
+        "T1021.002"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "proc_access_win_lsass_memory_read": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.011904761904761904,
+      "externals_passed": 3,
+      "quality": 1.0,
+      "building_block": false,
+      "techniques": [
+        "T1003.001"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": false
+      }
+    },
+    "proc_creation_win_certutil_download": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 0.9,
+      "building_block": false,
+      "techniques": [
+        "T1105"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_domain_privilege_recon": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.005952380952380952,
+      "externals_passed": 2,
+      "quality": 0.75,
+      "building_block": false,
+      "techniques": [
+        "T1069.002",
+        "T1482",
+        "T1033"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_event_log_cleared_cli": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 0,
+      "quality": 0.6,
+      "building_block": false,
+      "techniques": [
+        "T1685.005"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_impacket_exec_output_redirect": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 2,
+      "quality": 0.8,
+      "building_block": false,
+      "techniques": [
+        "T1047",
+        "T1021.003"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_mshta_remote_or_staged_hta": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 4,
+      "quality": 1.0,
+      "building_block": false,
+      "techniques": [
+        "T1218.005"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_office_spawn_script_interpreter": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.005952380952380952,
+      "externals_passed": 1,
+      "quality": 1.0,
+      "building_block": false,
+      "techniques": [
+        "T1566.001",
+        "T1204.002"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_powershell_encoded_cmd": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 1.0,
+      "building_block": false,
+      "techniques": [
+        "T1059.001",
+        "T1027"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_rclone_cloud_exfil": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 0,
+      "quality": 0.375,
+      "building_block": false,
+      "techniques": [
+        "T1567.002"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_rundll32_comsvcs_minidump": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 0.9,
+      "building_block": false,
+      "techniques": [
+        "T1003.001"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_schtasks_create_susp_action": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 3,
+      "quality": 0.675,
+      "building_block": false,
+      "techniques": [
+        "T1053.005"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "proc_creation_win_shadow_copy_deletion": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.0,
+      "externals_passed": 1,
+      "quality": 1.0,
+      "building_block": false,
+      "techniques": [
+        "T1490"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    },
+    "registry_set_win_run_key_user_writable_path": {
+      "status": "pass",
+      "tpr": 1.0,
+      "alerts_per_host_day": 0.011904761904761904,
+      "externals_passed": 4,
+      "quality": 0.75,
+      "building_block": false,
+      "techniques": [
+        "T1547.001"
+      ],
+      "conversions": {
+        "splunk": true,
+        "lucene": true,
+        "lucene_stock": true,
+        "esql": true,
+        "kql": true
+      }
+    }
+  }
+}

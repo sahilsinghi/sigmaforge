@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SigmaForge detection report</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1c1f24; --muted: #5d6470; --line: #e3e3de;
+  --pass: #15803d; --pass-bg: #dcfce7; --fail: #b91c1c; --fail-bg: #fee2e2; --warn: #a16207; --warn-bg: #fef3c7;
+  --gap: #d9d9d9; --weak: #fde68a; --moderate: #86efac; --strong: #15803d; --accent: #0f766e; --code: #f1f1ee;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111315; --panel: #1a1d21; --ink: #e8e8e6; --muted: #9aa1ab; --line: #2c3036;
+    --pass: #4ade80; --pass-bg: #12301f; --fail: #f87171; --fail-bg: #3a1616; --warn: #fbbf24; --warn-bg: #3a2e10;
+    --gap: #3a3d42; --weak: #8a6d1d; --moderate: #2f7a4a; --strong: #22c55e; --accent: #2dd4bf; --code: #23272c;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 24px; margin: 0; }
+h2 { font-size: 17px; margin: 32px 0 12px; }
+h3 { font-size: 14px; margin: 16px 0 8px; }
+.sub { color: var(--muted); font-size: 13px; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; justify-content: space-between; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 12px; letter-spacing: .02em; }
+.pill.pass { background: var(--pass-bg); color: var(--pass); }
+.pill.fail { background: var(--fail-bg); color: var(--fail); }
+.pill.warn { background: var(--warn-bg); color: var(--warn); }
+.pill.muted { background: var(--code); color: var(--muted); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 20px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+.kpi span { color: var(--muted); font-size: 12px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+ul.plain { margin: 6px 0; padding-left: 18px; }
+.matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.tactic { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; min-height: 64px; }
+.tactic h4 { margin: 0 0 6px; font-size: 12px; text-transform: capitalize; }
+.tactic .count { color: var(--muted); font-size: 11px; font-weight: 400; }
+.tech { display: block; border-radius: 6px; padding: 5px 7px; margin-top: 5px; font-size: 11px; line-height: 1.3; color: #111; }
+.tech.gap { background: var(--gap); color: var(--ink); }
+.tech.weak { background: var(--weak); }
+.tech.moderate { background: var(--moderate); }
+.tech.strong { background: var(--strong); color: #fff; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; background: var(--panel); position: sticky; top: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.bar { position: relative; height: 6px; background: var(--code); border-radius: 3px; width: 90px; margin-top: 4px; }
+.bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--pass); }
+.bar i.over { background: var(--fail); }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--code); white-space: nowrap; }
+.chip.ok { color: var(--pass); }
+.chip.no { color: var(--fail); }
+.chip.na { color: var(--muted); }
+.chip.doc { color: var(--warn); }
+details.rule { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; }
+details.rule > summary { cursor: pointer; padding: 10px 14px; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+details.rule > summary::-webkit-details-marker { display: none; }
+details.rule > summary .t { font-weight: 600; }
+details.rule .body { padding: 0 14px 14px; border-top: 1px solid var(--line); }
+pre { background: var(--code); padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 12px; white-space: pre-wrap; word-break: break-word; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
+.fail-text { color: var(--fail); }
+.warn-text { color: var(--warn); }
+.muted { color: var(--muted); }
+footer { margin-top: 40px; color: var(--muted); font-size: 12px; }
+@media (max-width: 640px) { h1 { font-size: 20px; } .kpi b { font-size: 18px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>SigmaForge detection report</h1>
+      <div class="sub">Generated {{ r.generated }} · ATT&amp;CK v{{ r.attack_version }} · SigmaForge {{ r.sigmaforge_version }}{% if commit %} · commit <code>{{ commit[:12] }}</code>{% endif %}</div>
+    </div>
+    {% if gate %}
+      <span class="pill {{ 'fail' if gate.decision == 'block' else 'pass' }}" style="font-size:14px;padding:6px 14px">{{ 'MERGE BLOCKED' if gate.decision == 'block' else 'READY TO MERGE' }}</span>
+    {% else %}
+      <span class="pill {{ 'pass' if r.status == 'pass' else 'fail' }}" style="font-size:14px;padding:6px 14px">{{ 'ALL RULES PASS' if r.status == 'pass' else 'FAILURES' }}</span>
+    {% endif %}
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><b>{{ r.summary.passing }}/{{ r.summary.rules }}</b><span>rules passing ({{ r.summary.building_blocks }} building blocks)</span></div>
+    <div class="kpi"><b>{{ r.summary.techniques_covered }}/{{ r.summary.techniques_tagged }}</b><span>tagged techniques with a tested, passing rule</span></div>
+    <div class="kpi"><b>{{ r.summary.tactics_covered }}</b><span>ATT&amp;CK tactics covered</span></div>
+    <div class="kpi"><b>{{ ext_pass }}/{{ ext_total }}</b><span>real-telemetry samples firing as expected</span></div>
+    <div class="kpi"><b>{{ "{:,}".format(r.benign.events) }}</b><span>benign events · {{ r.benign.host_days }} host-days</span></div>
+    {% if r.equivalence %}<div class="kpi"><b>{{ r.equivalence.identical }}/{{ r.equivalence.compared }}</b><span>rule×backend pairs with identical hits{% if r.equivalence.documented %} · {{ r.equivalence.documented }} documented diffs{% endif %}</span></div>{% endif %}
+  </div>
+
+  {% if gate %}
+  <h2>Merge gate</h2>
+  <div class="panel">
+    {% if not gate.baseline_found %}<p class="warn-text">No baseline/metrics.json found: regression checks were skipped.</p>{% endif %}
+    {% if gate.reasons %}<h3 class="fail-text">Blocking</h3><ul class="plain">{% for x in gate.reasons %}<li>{{ md(x) }}</li>{% endfor %}</ul>{% endif %}
+    {% if gate.warnings %}<h3 class="warn-text">Warnings</h3><ul class="plain">{% for x in gate.warnings %}<li>{{ md(x) }}</li>{% endfor %}</ul>{% endif %}
+    {% if gate.improvements %}<h3>Improvements</h3><ul class="plain">{% for x in gate.improvements %}<li>{{ md(x) }}</li>{% endfor %}</ul>{% endif %}
+    {% if not gate.reasons and not gate.warnings and not gate.improvements %}<p>No changes against the baseline.</p>{% endif %}
+  </div>
+  {% endif %}
+  {% if r.global_errors %}<h2>Repository errors</h2><div class="panel"><ul class="plain">{% for e in r.global_errors %}<li class="fail-text">{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+
+  <h2>ATT&amp;CK coverage (tested and passing only)</h2>
+  <div class="matrix">
+    {% for t in r.tactics %}
+    <div class="tactic">
+      <h4>{{ t.tactic.replace('-', ' ') }} <span class="count">{{ t.covered }}/{{ t.tagged }}</span></h4>
+      {% for tech in t.techniques %}
+        <span class="tech {{ tech.band }}" title="{{ tech.technique }} {{ tech.name }} — {% if tech.passing %}passing: {{ tech.passing|join(', ') }}{% else %}no passing rule{% endif %}{% if tech.failing %}; failing: {{ tech.failing|join(', ') }}{% endif %}">{{ tech.technique }} {{ tech.name }}{% if tech.passing %} · {{ (tech.score*100)|round|int }}{% endif %}</span>
+      {% else %}<span class="muted" style="font-size:11px">no rules</span>{% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="legend"><span><i style="background:var(--strong)"></i>strong ≥ 75</span><span><i style="background:var(--moderate)"></i>moderate 50–74</span><span><i style="background:var(--weak)"></i>weak &lt; 50</span><span><i style="background:var(--gap)"></i>tagged, no passing rule</span></div>
+
+  <h2>Rules</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Rule</th><th>Status</th><th>TPR</th><th>Real samples</th><th>Near-miss FP</th><th>Noise (alerts/host/day)</th><th>Backends</th><th>Quality</th></tr></thead>
+    <tbody>
+    {% for x in r.rules %}
+      <tr>
+        <td><a href="#{{ x.key }}">{{ x.title }}</a><div class="muted" style="font-size:11px"><code>{{ x.key }}</code>{% if x.building_block %} · building block{% endif %}{% if x.kind == 'correlation' %} · correlation{% endif %}</div></td>
+        <td><span class="pill {{ 'pass' if x.score.status == 'pass' else 'fail' }}">{{ x.score.status }}</span></td>
+        <td class="num">{% if x.score.tpr is not none %}{{ (x.score.tpr*100)|round|int }}% <span class="muted">({{ x.score.positives_matched }}/{{ x.score.positives_total }})</span>{% else %}—{% endif %}</td>
+        <td class="num">{% if x.score.externals_total %}{{ x.score.externals_passed }}/{{ x.score.externals_total }}{% elif x.score.externals_skipped %}<span class="muted">skipped</span>{% else %}<span class="muted">none</span>{% endif %}</td>
+        <td class="num">{{ x.score.negative_fp }}{% if x.score.negatives_total %} <span class="muted">/ {{ x.score.negatives_total }}</span>{% endif %}</td>
+        <td class="num">{% if x.building_block %}<span class="muted">n/a (building block)</span>{% elif x.score.alerts_per_host_day is not none %}{{ "%.3f"|format(x.score.alerts_per_host_day) }} <span class="muted">/ {{ x.noise_budget }}</span>
+          {% set pct = (x.score.alerts_per_host_day / x.noise_budget * 100) if x.noise_budget else 0 %}
+          <div class="bar"><i class="{{ 'over' if pct > 100 else '' }}" style="width: {{ [pct, 100]|min }}%"></i></div>{% else %}—{% endif %}</td>
+        <td><div class="chips">{% for b, c in x.conversions.items() %}{% set eq = (x.equivalence or {}).get('backends', {}).get(b) %}
+          <span class="chip {% if not c.ok %}no{% elif eq and eq.status == 'mismatch' %}no{% elif eq and eq.status == 'documented' %}doc{% elif not c.queries or (eq and eq.status == 'not-evaluable') %}na{% else %}ok{% endif %}" title="{% if not c.ok %}{{ c.error }}{% elif eq %}{{ eq.status }}: {{ eq.summary }}{% elif c.note %}{{ c.note }}{% else %}converted{% endif %}">{{ b }} {% if not c.ok %}✗{% elif eq and eq.status == 'mismatch' %}≠{% elif eq and eq.status == 'documented' %}≈{% elif not c.queries %}–{% elif eq and eq.status == 'not-evaluable' %}○{% else %}✓{% endif %}</span>{% endfor %}</div></td>
+        <td class="num">{% if x.score.status == 'pass' and not x.building_block %}{{ "%.2f"|format(x.score.quality) }}{% else %}<span class="muted">—</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <div class="legend"><span>✓ converted{% if r.equivalence %} and identical hits{% endif %}</span><span>≈ hits differ for a documented reason</span><span>≠ undocumented disagreement (blocks)</span><span>○ converted, not replayed</span><span>✗ backend cannot express the rule</span><span>– building block</span></div>
+
+  {% if r.equivalence %}
+  <h2>Cross-backend equivalence</h2>
+  <div class="panel">
+    <p>Every converted query was replayed against the same events reshaped into each backend's schema (Splunk Sysmon add-on fields, Elastic ECS / Winlogbeat, Defender XDR tables){% if r.equivalence.opensearch %} and, for Lucene, executed in a real OpenSearch {{ r.equivalence.opensearch.version }} cluster{% endif %}. Hit sets are compared event by event with the reference Sigma engine.</p>
+    <ul class="plain">
+      <li>{{ r.equivalence.identical }} identical rule×backend pairs, {{ r.equivalence.documented }} documented differences, {{ r.equivalence.mismatch }} undocumented, {{ r.equivalence.unsupported }} not expressible.</li>
+      {% if r.equivalence.opensearch %}<li>OpenSearch: {{ r.equivalence.opensearch.agree }}/{{ r.equivalence.opensearch.rules }} rules returned exactly the in-process Lucene hit set ({{ "{:,}".format(r.equivalence.opensearch.docs) }} documents indexed).</li>{% endif %}
+    </ul>
+    {% if r.equivalence.documented_reasons %}<h3>Documented differences</h3><ul class="plain">{% for d in r.equivalence.documented_reasons %}<li><code>{{ d.rule }}</code> on <b>{{ d.backend }}</b>: {{ d.reason }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+  {% endif %}
+
+  <h2>Rule details</h2>
+  {% for x in r.rules %}
+  <details class="rule" id="{{ x.key }}"{% if x.score.status != 'pass' %} open{% endif %}>
+    <summary><span class="pill {{ 'pass' if x.score.status == 'pass' else 'fail' }}">{{ x.score.status }}</span><span class="t">{{ x.title }}</span><span class="muted">{{ x.level }} · {{ x.path }}</span>{% for t in x.techniques %}<span class="chip">{{ t }} {{ x.technique_names[t] }}</span>{% endfor %}</summary>
+    <div class="body">
+      {% if x.score.failures %}<h3 class="fail-text">Failures</h3><ul class="plain">{% for f in x.score.failures %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+      {% if x.score.warnings %}<h3 class="warn-text">Warnings</h3><ul class="plain">{% for f in x.score.warnings %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+      <p class="muted" style="white-space:pre-wrap">{{ x.description }}</p>
+      <p class="muted">Owner {{ x.owner }} · confidence {{ x.confidence }}{% if x.score.quality_parts %} · quality {{ "%.2f"|format(x.score.quality) }} = {% for k, v in x.score.quality_parts.items() %}{{ k }} {{ v }}{% if not loop.last %} × {% endif %}{% endfor %}{% endif %} · benign replay {{ x.runtime_ms }} ms</p>
+      <h3>Test samples</h3>
+      <div class="tablewrap"><table><thead><tr><th>Kind</th><th>Sample</th><th>Events</th><th>Hits</th><th>Expected</th><th>Result</th></tr></thead><tbody>
+      {% for kind in ['positive', 'external', 'negative'] %}{% for s in x.samples[kind] %}
+        <tr><td>{{ kind }}</td><td><code>{{ s.source }}</code>{% if s.note %}<div class="muted">{{ s.note }}</div>{% endif %}{% if s.missed %}<div class="fail-text">{{ s.missed|join('; ') }}</div>{% endif %}</td><td class="num">{{ s.events }}</td><td class="num">{{ s.hits }}</td><td class="num">{% if kind == 'negative' %}0{% elif kind == 'external' %}≥ {{ s.expected }}{% else %}{{ s.expected }}{% endif %}</td>
+        <td>{% if s.passed is none %}<span class="pill muted">skipped</span>{% elif s.passed %}<span class="pill pass">ok</span>{% else %}<span class="pill fail">fail</span>{% endif %}</td></tr>
+      {% endfor %}{% endfor %}
+      </tbody></table></div>
+      {% if x.benign.hits %}<h3>Benign hits ({{ x.benign.hits }}) — candidates for tuning</h3><ul class="plain">{% for e in x.benign.examples %}<li><code>{{ e.host }}</code> {{ e.time[:19] }} — <code>{{ e.summary }}</code></li>{% endfor %}</ul>{% endif %}
+      {% for b, c in x.conversions.items() %}
+        <h3>{{ backends[b].label }}</h3>
+        {% if c.ok and c.queries %}<pre><code>{{ c.queries|join('\n\n') }}</code></pre>{% elif c.ok %}<p class="muted">{{ c.note }}</p>{% else %}<p class="warn-text">Not expressible: {{ c.error }}</p>{% endif %}
+        {% set eq = (x.equivalence or {}).get('backends', {}).get(b) %}
+        {% if eq %}<p class="{{ 'fail-text' if eq.status == 'mismatch' else ('warn-text' if eq.status == 'documented' else 'muted') }}">Replay: {{ eq.summary }}</p>{% endif %}
+      {% endfor %}
+    </div>
+  </details>
+  {% endfor %}
+
+  <h2>Method and limits</h2>
+  <div class="panel">
+    <ul class="plain">
+      <li><b>Benign baseline:</b> {{ "{:,}".format(r.benign.events) }} events from {{ r.benign.hosts }} hosts over {{ r.benign.host_days }} host-days ({{ r.benign.sources|join(', ') }}). Alerts per host per day = benign alerts ÷ host-days. The synthetic corpus models a small office; a real Sysmon VM baseline is closer to production and can be dropped into <code>tests/benign/</code>.</li>
+      <li><b>Real telemetry:</b> {% for name, d in r.datasets.items() %}{{ d.repo }} pinned at <code>{{ d.commit[:12] }}</code> ({{ d.license }}){% endfor %}. Public attack samples over-represent loud, well-known tools; passing them proves the rule fires on real artefacts, not that it catches a careful operator.</li>
+      <li><b>Quality score</b> = confidence × evidence × specificity × headroom. A tagged technique counts only when a rule for it passes every test.</li>
+      <li><b>Time:</b> correlation windows use event timestamps only, so years-old samples replay like live data.</li>
+    </ul>
+  </div>
+  <footer>SigmaForge · detection-as-code pipeline · results.json, the Navigator layer and converted queries are published next to this report.</footer>
+</main>
+</body>
+</html>

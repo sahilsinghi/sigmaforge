@@ -1,0 +1,56 @@
+title: PowerShell Launched With an Encoded Command
+id: ee2373bf-8d4e-42be-8d1a-30210ab3bee0
+status: test
+description: |
+  Detects powershell.exe or pwsh.exe started with -EncodedCommand or one of the
+  abbreviations PowerShell accepts for it (-e, -en, -enc, -ec). Encoded commands hide
+  intent from people and from naive string matching, and are standard in loaders and
+  post-exploitation frameworks. The leading and trailing spaces in the patterns keep
+  "-Encoding" (Get-Content -Encoding UTF8) from matching; see the negative test set.
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1059.001/T1059.001.md
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.stealth
+  - attack.t1027
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith:
+        - '\powershell.exe'
+        - '\pwsh.exe'
+    - OriginalFileName:
+        - 'PowerShell.EXE'
+        - 'pwsh.dll'
+  selection_cli:
+    CommandLine|windash|contains:
+      - ' -e '
+      - ' -en '
+      - ' -enc '
+      - ' -ec '
+      - ' -encodedcommand '
+  filter_sccm:
+    ParentImage: 'C:\Windows\CCM\CcmExec.exe'
+  condition: all of selection_* and not filter_sccm
+falsepositives:
+  - Configuration management agents that wrap scripts in encoded commands (SCCM is filtered).
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_powershell_encoded_cmd
+    negative:
+      - tests/negative/proc_creation_win_powershell_encoded_cmd
+    external:
+      - dataset: evtx-attack-samples
+        path: Credential Access/discovery_sysmon_1_iis_pwd_and_config_discovery_appcmd.evtx
+        min_hits: 1

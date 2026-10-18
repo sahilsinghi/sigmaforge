@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+out/
+.cache/
+# generated in CI from the seeded generator (locked by baseline/corpus.lock.json)
+tests/benign/synthetic/
+# your own lab exports; large, keep them out of history (or use Git LFS)
+tests/benign/real/

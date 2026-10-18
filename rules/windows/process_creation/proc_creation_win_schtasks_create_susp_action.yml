@@ -1,0 +1,66 @@
+title: Scheduled Task Created With a Suspicious Action
+id: a1191177-73f1-48ea-ad2d-6813d0f7a2ea
+status: test
+description: |
+  Detects schtasks.exe /create where the task runs a shell, script host or LOLBin, points
+  at a user-writable folder or shadow-copy device path, or fetches from a URL. Software
+  updaters register tasks through the Task Scheduler COM API and point at Program Files,
+  so they do not match.
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1053.005
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\schtasks.exe'
+    - OriginalFileName: 'schtasks.exe'
+  selection_create:
+    CommandLine|windash|contains: '-create'
+  selection_action:
+    CommandLine|contains:
+      - 'powershell'
+      - 'pwsh'
+      - '\cmd.exe'
+      - 'cmd /c'
+      - 'mshta'
+      - 'rundll32'
+      - 'regsvr32'
+      - 'wscript'
+      - 'cscript'
+      - '\AppData\'
+      - '\Users\Public\'
+      - '\Temp\'
+      - 'HarddiskVolumeShadowCopy'
+      - 'http://'
+      - 'https://'
+  condition: all of selection_*
+falsepositives:
+  - Administrators scheduling maintenance PowerShell scripts (review and filter by task name).
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: medium
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_schtasks_create_susp_action
+    negative:
+      - tests/negative/proc_creation_win_schtasks_create_susp_action
+    external:
+      - dataset: evtx-attack-samples
+        path: Execution/exec_persist_rundll32_mshta_scheduledtask_sysmon_1_3_11.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Execution/sysmon_exec_from_vss_persistence.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/Malware/rundll32_cmd_schtask.evtx
+        min_hits: 1

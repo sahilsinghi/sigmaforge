@@ -1,0 +1,70 @@
+title: Mshta Executing Remote, Inline or Staged HTA Content
+id: 6b7a4df4-fad1-496f-aab1-c1c264dc6a1f
+status: test
+description: |
+  Detects mshta.exe running script from a URL, inline javascript:/vbscript: code, an HTA
+  file staged in a user-writable or browser-cache folder, or being launched over DCOM
+  (-Embedding, the LethalHTA lateral movement technique).
+
+  URLs and inline script alone are not enough: replaying the public EVTX attack samples
+  shows the common real-world case is a browser-downloaded .hta run from Temporary
+  Internet Files, which is what the staged-file selection covers.
+references:
+  - https://attack.mitre.org/techniques/T1218/005/
+  - https://lolbas-project.github.io/lolbas/Binaries/Mshta/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.stealth
+  - attack.t1218.005
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\mshta.exe'
+    - OriginalFileName: 'MSHTA.EXE'
+  selection_inline_or_remote:
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+      - 'javascript:'
+      - 'vbscript:'
+      - ' -Embedding'
+  selection_staged_path:
+    CommandLine|contains:
+      - '\Temporary Internet Files\'
+      - '\INetCache\'
+      - '\Downloads\'
+      - '\AppData\'
+      - '\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+  selection_staged_ext:
+    CommandLine|contains: '.hta'
+  condition: selection_img and (selection_inline_or_remote or (selection_staged_path and selection_staged_ext))
+falsepositives:
+  - Legacy line-of-business HTA applications installed under Program Files are not matched.
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.02
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_mshta_remote_or_staged_hta
+    negative:
+      - tests/negative/proc_creation_win_mshta_remote_or_staged_hta
+    external:
+      - dataset: evtx-attack-samples
+        path: Execution/sysmon_mshta_sharpshooter_stageless_meterpreter.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Execution/exec_persist_rundll32_mshta_scheduledtask_sysmon_1_3_11.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Other/maldoc_mshta_via_shellbrowserwind_rundll32.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/LM_DCOM_MSHTA_LethalHTA_Sysmon_3_1.evtx
+        min_hits: 1

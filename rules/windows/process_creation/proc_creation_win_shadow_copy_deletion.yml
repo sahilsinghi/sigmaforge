@@ -1,0 +1,60 @@
+title: Shadow Copies or Backup Catalog Deleted
+id: 7d1fe6c1-1faa-45d5-9e88-7c83387b3c9d
+status: test
+description: |
+  Detects deletion of Volume Shadow Copies or the Windows backup catalog with vssadmin,
+  wmic, wbadmin or PowerShell's Win32_ShadowCopy class. Ransomware does this right before
+  encryption so victims cannot roll back.
+references:
+  - https://attack.mitre.org/techniques/T1490/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.impact
+  - attack.t1490
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_vssadmin:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - 'delete'
+      - 'shadows'
+  selection_vssadmin_resize:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - 'resize'
+      - 'shadowstorage'
+      - 'maxsize'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains|all:
+      - 'shadowcopy'
+      - 'delete'
+  selection_wbadmin:
+    Image|endswith: '\wbadmin.exe'
+    CommandLine|contains|all:
+      - 'delete'
+      - 'catalog'
+  selection_powershell:
+    CommandLine|contains|all:
+      - 'Win32_ShadowCopy'
+      - 'Delete'
+  condition: 1 of selection_*
+falsepositives:
+  - Backup software rotating its own snapshots (should use the VSS API, not these tools).
+level: critical
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.01
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_shadow_copy_deletion
+    negative:
+      - tests/negative/proc_creation_win_shadow_copy_deletion
+    external:
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/PanacheSysmon_vs_AtomicRedTeam01.evtx
+        min_hits: 2

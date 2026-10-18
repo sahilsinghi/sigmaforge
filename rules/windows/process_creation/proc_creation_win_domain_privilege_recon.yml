@@ -1,0 +1,70 @@
+title: Privileged Group and Domain Trust Reconnaissance
+id: b7e42377-e212-4de2-8a80-814e245bd0ca
+status: test
+description: |
+  Detects the discovery commands intruders run in the first minutes on a host: listing
+  privileged domain groups (net group "Domain Admins" /domain), enumerating domain
+  controllers and trusts with nltest, and dumping the current token's groups and
+  privileges with whoami /all, /groups or /priv. Plain "whoami" is excluded because login
+  scripts and helpdesk tools run it constantly.
+references:
+  - https://attack.mitre.org/techniques/T1069/002/
+  - https://attack.mitre.org/techniques/T1482/
+  - https://attack.mitre.org/techniques/T1033/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.discovery
+  - attack.t1069.002
+  - attack.t1482
+  - attack.t1033
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_net_img:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+  selection_net_cli:
+    CommandLine|contains|all:
+      - ' group '
+      - '/domain'
+  selection_net_priv:
+    CommandLine|contains:
+      - 'admins'
+      - 'enterprise'
+      - 'controllers'
+  selection_nltest:
+    Image|endswith: '\nltest.exe'
+    CommandLine|contains:
+      - '/dclist'
+      - '/domain_trusts'
+      - '/all_trusts'
+      - '/trusted_domains'
+  selection_whoami:
+    Image|endswith: '\whoami.exe'
+    CommandLine|contains:
+      - '/all'
+      - '/groups'
+      - '/priv'
+  condition: all of selection_net_* or selection_nltest or selection_whoami
+falsepositives:
+  - Administrators troubleshooting group membership. Expect a low, steady rate from IT hosts.
+level: medium
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: medium
+  noise_budget: 0.1
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_domain_privilege_recon
+    negative:
+      - tests/negative/proc_creation_win_domain_privilege_recon
+    external:
+      - dataset: evtx-attack-samples
+        path: Lateral Movement/LM_wmiexec_impacket_sysmon_whoami.evtx
+        min_hits: 1
+      - dataset: evtx-attack-samples
+        path: Execution/sysmon_exec_from_vss_persistence.evtx
+        min_hits: 1

@@ -1,0 +1,63 @@
+# Documented reasons why a backend's hits differ from the Sigma reference engine.
+#
+# Each entry pins the exact size of the difference on the committed test data
+# (positives, negatives, benign baseline) in "expected", so a documented gap cannot
+# quietly grow: if the counts change, the pipeline reports a mismatch again and blocks
+# the merge until someone re-reviews the reason. Differences on the downloaded
+# real-telemetry samples are reported next to it.
+
+# --- Stock Elastic ECS pipeline: case-sensitive keyword fields -------------------------
+# Sigma string matching is case-insensitive by specification. pySigma's stock ecs_windows
+# pipeline only routes process.executable / process.parent.executable through a lowercase
+# ".caseless" multi-field; process.command_line, registry.path and winlog.event_data.* are
+# matched as case-sensitive keywords. Verified in OpenSearch 2.19. The `lucene` backend
+# (sigmaforge_ecs_caseless pipeline + index template) closes the gap; `lucene_stock` is
+# kept to show what an unmodified deployment would miss.
+- rule: proc_creation_win_powershell_encoded_cmd
+  backend: lucene_stock
+  reason: >
+    Stock ECS mapping queries process.command_line case-sensitively. Misses "-Enc" and
+    "-ENCODEDCOMMAND", which PowerShell accepts and loaders use. Fixed by the `lucene` backend.
+  expected: {engine_only: 2, backend_only: 0}
+- rule: proc_creation_win_schtasks_create_susp_action
+  backend: lucene_stock
+  reason: >
+    Case-sensitive process.command_line: the rule's "/create" never matches "/Create", so the
+    Atomic Red Team positives and the real EVTX sample (schtasks /Create ... mshta) are
+    missed. Fixed by the `lucene` backend.
+  expected: {engine_only: 2, backend_only: 0}
+- rule: proc_creation_win_domain_privilege_recon
+  backend: lucene_stock
+  reason: >
+    Case-sensitive process.command_line: the rule's "admins" / "enterprise" never match
+    net group "Domain Admins" or "Enterprise Admins". Fixed by the `lucene` backend.
+  expected: {engine_only: 2, backend_only: 0}
+- rule: registry_set_win_run_key_user_writable_path
+  backend: lucene_stock
+  reason: >
+    registry.path is a case-sensitive keyword; Windows writes "HKLM\SOFTWARE\..." in upper
+    case while the rule says "\Software\...". Misses machine-wide Run keys. Fixed by `lucene`.
+  expected: {engine_only: 2, backend_only: 0}
+
+# --- Microsoft Defender XDR pipeline ---------------------------------------------------
+- rule: registry_set_win_run_key_user_writable_path
+  backend: kql
+  reason: >
+    pySigma's microsoft_xdr pipeline rewrites TargetObject|contains '\...\Run\' into
+    RegistryKey endswith "\...\Run*". KQL endswith has no wildcards, so the asterisk is
+    literal and the query can never match. Upstream pipeline issue; until it is fixed, write
+    XDR registry rules against RegistryKey/RegistryValueName directly.
+  expected: {engine_only: 6, backend_only: 0}
+
+# --- Correlations: sliding windows vs fixed buckets ------------------------------------
+# SigmaForge evaluates correlation timespans as sliding windows. The Splunk backend converts
+# them to `bin _time span=...` - fixed, clock-aligned buckets - so a burst that straddles a
+# bucket boundary is split and may not reach the threshold in either half.
+- rule: password_spray
+  backend: splunk
+  reason: >
+    12 accounts sprayed between 13:57:00 and 14:00:40 fall into two 10-minute Splunk buckets
+    (9 + 3 accounts); neither reaches 10 distinct accounts. The sliding-window engine alerts.
+    Mitigate with `streamstats time_window=10m` instead of `bin`.
+  expected_scenarios:
+    "positive:spray_straddling_bucket_boundary.jsonl": [1, 0]

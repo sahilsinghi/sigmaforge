@@ -1,0 +1,62 @@
+title: Office Application Spawned a Shell or Script Host
+id: 478db419-c051-4afb-87c2-1de541fa8868
+status: test
+description: |
+  Detects Word, Excel, PowerPoint, Outlook, Access, Publisher or OneNote starting a
+  command shell, script host or LOLBin. This is the classic macro / malicious-attachment
+  execution chain. Legitimate Office children (splwow64 for printing, the Office click-to-
+  run helpers) are not in the child list.
+references:
+  - https://attack.mitre.org/techniques/T1566/001/
+  - https://attack.mitre.org/techniques/T1204/002/
+author: Sahil Singhi
+date: 2026-10-18
+tags:
+  - attack.initial-access
+  - attack.t1566.001
+  - attack.execution
+  - attack.t1204.002
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+      - '\MSACCESS.EXE'
+      - '\MSPUB.EXE'
+      - '\ONENOTE.EXE'
+  selection_child:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\mshta.exe'
+      - '\rundll32.exe'
+      - '\regsvr32.exe'
+      - '\certutil.exe'
+      - '\bitsadmin.exe'
+      - '\schtasks.exe'
+      - '\msiexec.exe'
+  condition: all of selection_*
+falsepositives:
+  - Finance or reporting macros that shell out on purpose. Filter them by full command line after review.
+level: high
+x_sigmaforge:
+  owner: sahil.singhi
+  confidence: high
+  noise_budget: 0.05
+  tests:
+    positive:
+      - tests/positive/proc_creation_win_office_spawn_script_interpreter
+    negative:
+      - tests/negative/proc_creation_win_office_spawn_script_interpreter
+    external:
+      - dataset: evtx-attack-samples
+        path: AutomatedTestingTools/Malware/sideloading_uacbypass_rundll32_injection_c2.evtx
+        min_hits: 1

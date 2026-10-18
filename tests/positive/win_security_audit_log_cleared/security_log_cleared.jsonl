@@ -1,0 +1,1 @@
+{"EventID": 1102, "Channel": "Security", "Computer": "WS-004.corp.local", "@timestamp": "2026-10-01T09:37:37.000Z", "SubjectUserName": "bob", "SubjectDomainName": "CORP", "SubjectLogonId": "0x3e7a1"}
