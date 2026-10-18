@@ -17,9 +17,11 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # This job runs pull-request code (pip install -e ., pytest, the gate): read-only, except
+    # for posting its own comment. The baseline push lives in a separate main-only job.
     permissions:
-      contents: write        # main only: commit refreshed baseline/metrics.json
-      pull-requests: write   # sticky PR comment
+      contents: read
+      pull-requests: write   # sticky PR comment (read-only for fork PRs; that step tolerates it)
     services:
       opensearch:
         image: opensearchproject/opensearch:2.19.1
@@ -33,11 +35,12 @@ jobs:
           --health-cmd "curl -fs http://localhost:9200 || exit 1"
           --health-interval 10s --health-timeout 5s --health-retries 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
           cache: pip
@@ -46,7 +49,7 @@ jobs:
         run: pip install -e ".[dev]"
 
       - name: Cache pinned attack telemetry
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .cache/datasets
           key: datasets-${{ hashFiles('datasets/*.lock.json') }}
@@ -62,9 +65,12 @@ jobs:
 
       - name: Baseline metrics from the base branch
         id: base
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git show "origin/${{ github.base_ref }}:baseline/metrics.json" > base-metrics.json 2>/dev/null \
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            git show "origin/${BASE_REF}:baseline/metrics.json" > base-metrics.json 2>/dev/null \
               && echo "path=base-metrics.json" >> "$GITHUB_OUTPUT" \
               || echo "path=" >> "$GITHUB_OUTPUT"
           else
@@ -73,12 +79,14 @@ jobs:
 
       - name: Lint, convert, replay, compare backends, gate
         id: ci
+        env:
+          BASELINE: ${{ steps.base.outputs.path }}
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set +e
-          ARGS="--require-external --opensearch http://localhost:9200"
-          if [ -n "${{ steps.base.outputs.path }}" ]; then ARGS="$ARGS --baseline ${{ steps.base.outputs.path }}"; fi
-          sigmaforge ci $ARGS \
-            --report-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          ARGS=(--require-external --opensearch http://localhost:9200)
+          if [ -n "$BASELINE" ]; then ARGS+=(--baseline "$BASELINE"); fi
+          sigmaforge ci "${ARGS[@]}" --report-url "$REPORT_URL"
           echo "exit=$?" >> "$GITHUB_OUTPUT"
 
       - name: Job summary
@@ -87,7 +95,7 @@ jobs:
 
       - name: Upload report, Navigator layer and converted queries
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: sigmaforge-report
           path: |
@@ -100,7 +108,8 @@ jobs:
 
       - name: Sticky PR comment
         if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        continue-on-error: true  # fork PRs get a read-only token; the job summary still has the report
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const fs = require('fs');
@@ -122,16 +131,12 @@ jobs:
           echo "::error::SigmaForge gate blocked this change. See the PR comment or the report artifact."
           exit 1
 
-      - name: Refresh the committed regression baseline (main only)
+      - name: Keep the metrics for the baseline job (main only)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          cp out/metrics.json baseline/metrics.json
-          if ! git diff --quiet -- baseline/metrics.json; then
-            git config user.name "sigmaforge-bot"
-            git config user.email "sigmaforge-bot@users.noreply.github.com"
-            git commit -m "Update baseline metrics [skip ci]" -- baseline/metrics.json
-            git push
-          fi
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: metrics
+          path: out/metrics.json
 
       - name: Prepare Pages site
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -144,9 +149,37 @@ jobs:
 
       - name: Upload Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: site
+
+  baseline:
+    # Only trusted code on main reaches this job, and only after the gate passed.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # commit refreshed baseline/metrics.json
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: metrics
+          path: out
+      - name: Refresh the committed regression baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          cp out/metrics.json baseline/metrics.json
+          if ! git diff --quiet -- baseline/metrics.json; then
+            git config user.name "sigmaforge-bot"
+            git config user.email "sigmaforge-bot@users.noreply.github.com"
+            git commit -m "Update baseline metrics [skip ci]" -- baseline/metrics.json
+            git push "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" HEAD:main
+          fi
 
   pages:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -160,4 +193,15 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    permissions:
+      contents: read
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      KIBANA_URL: ${{ secrets.KIBANA_URL }}
+      KIBANA_API_KEY: ${{ secrets.KIBANA_API_KEY }}
+      ES_URL: ${{ secrets.ES_URL }}

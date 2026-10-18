@@ -181,6 +181,13 @@ toward loud tools. The SPL and KQL evaluators are models checked by unit tests, 
 Splunk or Defender. 24 tested techniques is a small slice of ATT&CK, and the map says so.
 More in [the methodology write-up](docs/measuring-detection-quality.md#limits--read-these-before-quoting-any-number).
 
+## Security
+
+Pull requests are treated as untrusted code: the PR job has a read-only token and no persisted
+credentials, secrets exist only in the main-only deploy job, and every action is pinned to a commit
+SHA. Details and the one known dependency advisory (pySigma's `diskcache`) are in
+[SECURITY.md](SECURITY.md).
+
 ## Licence
 
 MIT. Rules and tooling are original work. EVTX-ATTACK-SAMPLES by
