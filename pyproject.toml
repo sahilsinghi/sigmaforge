@@ -19,7 +19,7 @@ dependencies = [
   "pysigma-backend-kusto>=1.0",
   "pysigma-pipeline-sysmon>=2.0",
   "pysigma-pipeline-windows>=2.0",
-  "PyYAML>=6.0",
+  "PyYAML>=6.0.3",
   "Jinja2>=3.1",
   "python-evtx>=0.8",
 ]
