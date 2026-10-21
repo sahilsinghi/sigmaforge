@@ -12,7 +12,7 @@ license = { text = "MIT" }
 authors = [{ name = "Sahil Singhi" }]
 keywords = ["sigma", "detection-engineering", "soc", "siem", "mitre-attack", "detection-as-code"]
 dependencies = [
-  "pySigma>=1.5",
+  "pySigma>=2.0.1",
   "sigma-cli>=3.1",
   "pysigma-backend-splunk>=2.1",
   "pysigma-backend-elasticsearch>=2.1",
